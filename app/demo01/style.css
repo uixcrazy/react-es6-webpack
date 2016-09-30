@@ -1,0 +1,17 @@
+
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  max-width: 960px;
+  padding: 20px;
+  margin: 0 auto;
+}
+a {
+  display: block;
+  color: #4d7496;
+}
+h3 {
+  font-size: 18px;
+}
