@@ -1,0 +1,6 @@
+//grid system
+@mixin col($col-no,$col-num){
+  float: left;
+  position: relative;
+  width: percentage($col-no/$col-num);
+}

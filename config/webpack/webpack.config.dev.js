@@ -6,8 +6,7 @@ const devPort = 9009;
 export default {
   devtool: 'source-map',
   entry: {
-    demo01: ['./src/demo01/app.js', 'webpack/hot/dev-server'],
-    hhd: ['./src/hhd.js', 'webpack/hot/dev-server'],
+    demo01: ['./app/demo01/app.js', 'webpack/hot/dev-server']
   },
   output: {
     path: path.join(__dirname, '../../dist'),

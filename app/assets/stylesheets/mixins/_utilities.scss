@@ -5,3 +5,41 @@
     clear: both;
   }
 }
+
+@mixin font-face($name, $url-woff) {
+  @font-face {
+    font-family: $name;
+    src: url('../fonts/'+$url-woff);
+  }
+  // rails
+  // $url-eot, , $url-ttf, $url-svg, $weight, $style
+  // @font-face {
+  //   font-family: $name;
+  //   src: asset-url('../fonts/'+$url-eot);
+  //   src: asset-url('../fonts/'+$url-eot+'#iefix') format('embedded-opentype'),
+  //   asset-url('../fonts/'+$url-woff) format('woff'),
+  //   asset-url('../fonts/'+$url-ttf) format('truetype'),
+  //   asset-url('../fonts/'+$url-svg) format('svg');
+  //   font-weight: $weight;
+  //   font-style: $style;
+  // }
+}
+// @include transform(scaleX(-1));  --> flip horizontal
+@mixin transform ($parameter) {
+  -webkit-transform: $parameter;
+  -ms-transform: $parameter;
+  transform: $parameter;
+}
+
+@mixin transform-origin($parameter){
+  -webkit-transform-origin: $parameter;
+  -ms-transform-origin: $parameter;
+  transform-origin: $parameter;
+}
+
+@mixin user-select($select) {
+  -webkit-user-select: $select;
+  -moz-user-select: $select;
+  -ms-user-select: $select; // IE10+
+  user-select: $select;
+}

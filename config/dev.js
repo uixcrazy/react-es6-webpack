@@ -7,7 +7,6 @@
 
 import webpack from 'webpack';
 import express from 'express';
-import Twig from 'twig';
 import path from 'path';
 import fs from 'fs';
 import WebpackDevServer from 'webpack-dev-server';
@@ -91,7 +90,7 @@ router.get('/demo', (req, res) => {
 // });
 
 router.get('/demo01', function(req, res) {
-  res.sendFile(path.join(__dirname, '../src/demo01/index.html'), 'utf-8');
+  res.sendFile(path.join(__dirname, '../app/demo01/index.html'), 'utf-8');
 });
 
 server.use(router);

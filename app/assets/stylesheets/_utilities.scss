@@ -2,16 +2,50 @@
   @include clearfix();
 }
 
-//
-// Display utilities
-//
+@include font-face(myFirstFont, utm-aptima/utm-aptima.woff);
 
-.d-block {
-  display: block !important;
+//grid system : 12cols
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    @include col($i,12);
+  }
 }
-.d-inline-block {
-  display: inline-block !important;
-}
-.d-inline {
-  display: inline !important;
-}
+
+
+// @media screen and (-webkit-min-device-pixel-ratio:0) {
+//   @font-face {
+//     font-family: "Flaticon";
+//     src: url("./Flaticon.svg#Flaticon") format("svg");
+//   }
+// }
+
+// [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+// [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+//   font-family: Flaticon;
+//         font-size: 20px;
+// font-style: normal;
+// margin-left: 20px;
+// }
+
+// my reset
+// * { box-sizing: border-box; outline:0; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-tap-highlight-color: transparent;}
+// *, *:before, *:after { box-sizing: border-box; }
+// // a, input[type=submit]{-webkit-tap-highlight-color: rgba(0,0,0,0.2);}
+// ul{list-style:none;}
+// //for iphone & iphone 4s
+// input {
+//   -webkit-border-radius:0;
+//   border-radius:0;
+// }
+// input[type="search"],
+// input[type="text"],
+// input[type="email"],
+// input[type="password"],
+// input[type="checkbox"],
+// input[type="radio"] {
+//   -webkit-appearance: none;
+// }
+// input:-webkit-autofill {
+//   -webkit-box-shadow: 0 0 0px 1000px white inset;
+//   -webkit-text-fill-color: #999;
+// }
