@@ -1,0 +1,68 @@
+%font-fix-smoothing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+// %font-main {
+//   @extend %font-fix-smoothing;
+//   font-family: 'Roboto', Tahoma, Geneva, sans-serif; }
+// %font-title {
+//   @extend %font-fix-smoothing;
+//   font-family: 'UTM-Aptima-Regular', Tahoma, Geneva, sans-serif; }
+// %font-fancy {
+//   @extend %font-fix-smoothing;
+//   font-family: 'UTM-Aquarelle-Regular', Tahoma, Geneva, sans-serif; }
+// %font-monospace {
+//   font-family: "Courier New", Courier, monospace;
+// }
+//
+%txt-overflow { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+%ovf-hidden {overflow: hidden;}
+%ovf-hidden-x {overflow-x: hidden;}
+%lh-reset { line-height: initial }
+%lh-12 { line-height: 1.2; }
+%lh-15 { line-height: 1.5; }
+%lh-2 { line-height: 2; }
+%ls-reset { letter-spacing: initial; }
+
+%t-center { text-align: center; }
+%t-left { text-align: left; }
+%t-right { text-align: right; }
+%t-decor-none { text-decoration: none; }
+%t-decor-underline { text-decoration: underline; }
+%fw-bold { font-weight: bold; }
+%fw-300 { font-weight: 300; }
+%fstyle-i { font-style: italic; }
+%txt-i-hide { text-indent: -9999px; }
+
+%txt-shadow-1 { text-shadow: 1px 1px 1px rgba(150, 150, 150, 1); }
+%txt-shadow-2 { text-shadow: 1px 1px 1px rgba(50, 50, 50, 1); }
+
+%color-fff { color: #fff; }
+%color-eee { color: #eee; }
+%color-ccc { color: #ccc; }
+%color-aaa { color: #aaa; }
+%color-999 { color: #999; }
+%color-555 { color: #555; }
+%color-333 { color: #333; }
+%color-000 { color: #000; }
+
+%fs-10 { font-size: 10px; }
+%fs-11 { font-size: 11px; }
+%fs-12 { font-size: 12px; }
+%fs-13 { font-size: 13px; }
+%fs-14 { font-size: 14px; }
+%fs-15 { font-size: 15px; }
+%fs-16 { font-size: 16px; }
+%fs-18 { font-size: 18px; }
+%fs-20 { font-size: 20px; }
+%fs-22 { font-size: 22px; }
+%fs-24 { font-size: 24px; }
+%fs-26 { font-size: 26px; }
+%fs-28 { font-size: 28px; }
+%fs-30 { font-size: 30px; }
+%fs-32 { font-size: 32px; }
+%fs-36 { font-size: 36px; }
+%fs-42 { font-size: 42px; }
+%fs-50 { font-size: 50px; }
+%fs-80 { font-size: 80px; }
+%fs-100 { font-size: 100px; }
