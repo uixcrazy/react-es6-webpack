@@ -89,8 +89,8 @@ router.get('/demo', (req, res) => {
 //   }));
 // });
 
-router.get('/demo01', function(req, res) {
-  res.sendFile(path.join(__dirname, '../app/demo01/index.html'), 'utf-8');
+router.get('/:demo_page', function(req, res) {
+  res.sendFile(path.join(__dirname, `../app/${req.params.demo_page}/index.html`), 'utf-8');
 });
 
 server.use(router);
