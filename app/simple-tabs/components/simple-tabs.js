@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react';
 
 class SimpleTabs  extends Component {
   constructor(props) {
@@ -6,7 +6,7 @@ class SimpleTabs  extends Component {
     this.renderLabels = this.renderLabels.bind(this);
     this.tabsList = {
       sunflower: {
-        label: 'Sunflower',
+        label: 'sunflower',
         content: `The cousin with sunflower is "wild sunflower". Vnes call "hoa dã quỳ".
         The wild sunflowers often bloom in late October in the winter as rainy season of Da Lat passes.`
       },
@@ -18,22 +18,38 @@ class SimpleTabs  extends Component {
         label: 'sakura',
         content: `A cherry blossom is the flower of any of several trees of genus Prunus, particularly the Japanese cherry, Prunus serrulata, which is called sakura after the Japanese (桜 or 櫻; さくら). Cherry blossom is speculated to be native to the Himalayas.`
       },
-    }
+    };
+    const activeTabs = 'sunflower';
+
+    this.state = {
+      tabsItem: this.tabsList[activeTabs],
+      active: activeTabs,
+    };
   }
 
-  changeTab() {
-
-
+  changeTab(item, activeTabs) {
+    this.setState({
+      tabsItem: item,
+      active: activeTabs,
+    });
   }
 
   renderLabels() {
-    Object.keys(this.tabsList).map((value, index) => {
-      console.log(value, index);
-      console.log(this.tabsList[value]);
+    const label = Object.keys(this.tabsList).map((value, index) => {
+      let status = '';
+      if (value === this.state.active) {
+        status = 'active';
+      }
       return (
-        <li key={index}>{this.tabsList[value].label}</li>
+        <li className={status}
+          onClick={this.changeTab.bind(this, this.tabsList[value], value)}
+          key={this.tabsList[value].label}
+        >
+          {this.tabsList[value].label}
+        </li>
       )
     });
+    return label;
   }
 
   render() {
@@ -42,7 +58,9 @@ class SimpleTabs  extends Component {
         <ul className="labels">
           {this.renderLabels()}
         </ul>
-        <div>this is panel</div>
+        <div>
+          {this.state.tabsItem.content}
+        </div>
       </div>
     )
   }
