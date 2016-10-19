@@ -1,8 +1,8 @@
 
 import webpack from 'webpack';
 import path from 'path';
+import { DEV_PORT, HOST_NAME } from '../const.js';
 
-const devPort = 9009;
 export default {
   devtool: 'source-map',
   entry: {
@@ -11,7 +11,7 @@ export default {
   },
   output: {
     path: path.join(__dirname, '../../dist'),
-    publicPath: `http://localhost:${devPort}/assets/`,
+    publicPath: `http://${HOST_NAME}:${DEV_PORT}/assets/`,
     filename: '[name].js',
   },
   module: {

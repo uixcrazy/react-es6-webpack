@@ -11,8 +11,8 @@ import path from 'path';
 import fs from 'fs';
 import WebpackDevServer from 'webpack-dev-server';
 import config from './webpack/webpack.config.dev';
+import { DEV_PORT, HOST_NAME } from './const.js';
 
-const devPort = 9009;
 const router = express.Router();
 const pluginDefine = new webpack.DefinePlugin({
   // for compatiable with current source code.
@@ -94,7 +94,7 @@ router.get('/:demo_page', function(req, res) {
 });
 
 server.use(router);
-server.listen(devPort, "localhost", () => {
-  console.log('Server start on port: ${devPort}');
+server.listen(DEV_PORT, HOST_NAME, () => {
+  console.log(`Server start at ${HOST_NAME} on port: ${DEV_PORT}`);
 });
 // server.close();
