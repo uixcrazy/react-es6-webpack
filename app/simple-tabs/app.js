@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { render } from 'react-dom';
 import SimpleTabs from './components/simple-tabs';
+import './simple-tabs.scss';
 
 class App extends Component {
   constructor(props) {

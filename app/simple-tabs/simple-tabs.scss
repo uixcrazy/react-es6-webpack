@@ -1,0 +1,14 @@
+@import "../../assets/stylesheets/fundamental/normalize";
+@import "../../assets/stylesheets/vendors/react-css-transition-replace";
+
+.simple-tabs {
+  // background: #0ff;
+  .st-content {
+    height: 300px;
+    width: 300px;
+    overflow: hidden;
+    display: block;
+  }
+}
+
+

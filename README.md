@@ -9,3 +9,7 @@ react, es6, sass, webpack
 
 #### demo01
 ---------------------
+
+{localhost}:9009/demo01
+
+{localhost}:9009/simple-tabs
