@@ -6,6 +6,7 @@
 
 We have to install
 
+- babel-register
 - chai
 - enzyme
 - jsdom
