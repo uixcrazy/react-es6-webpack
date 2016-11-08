@@ -9,7 +9,7 @@
 @mixin font-face($name, $url-woff) {
   @font-face {
     font-family: $name;
-    src: url('../fonts/'+$url-woff);
+    src: url("../fonts/")$url-woff;;
   }
   // rails
   // $url-eot, , $url-ttf, $url-svg, $weight, $style
@@ -27,19 +27,19 @@
 // @include transform(scaleX(-1));  --> flip horizontal
 @mixin transform ($parameter) {
   -webkit-transform: $parameter;
-  -ms-transform: $parameter;
-  transform: $parameter;
+      -ms-transform: $parameter;
+          transform: $parameter;
 }
 
-@mixin transform-origin($parameter){
+@mixin transform-origin($parameter) {
   -webkit-transform-origin: $parameter;
-  -ms-transform-origin: $parameter;
-  transform-origin: $parameter;
+      -ms-transform-origin: $parameter;
+          transform-origin: $parameter;
 }
 
 @mixin user-select($select) {
   -webkit-user-select: $select;
-  -moz-user-select: $select;
-  -ms-user-select: $select; // IE10+
-  user-select: $select;
+     -moz-user-select: $select;
+      -ms-user-select: $select; // IE10+
+          user-select: $select;
 }

@@ -1,0 +1,72 @@
+
+%br-100p { border-radius: 100%; } // circle
+%br-2 { border-radius: 2px; }
+%br-3 { border-radius: 3px; }
+%br-4 { border-radius: 4px; }
+%br-5 { border-radius: 5px; }
+%br-tleft-5 { border-top-left-radius: 5px; }
+%br-bleft-5 { border-bottom-left-radius: 5px; }
+%br-tright-5 { border-top-right-radius: 5px; }
+%br-bright-5 { border-bottom-right-radius: 5px; }
+
+%b-none { border: none;}
+%b-fff { border: 1px solid #fff; }
+%b-eee { border: 1px solid #eee; }
+%b-e5 { border: 1px solid #e5e5e5; }
+%b-ccc { border: 1px solid #ccc; }
+%b-ddd { border: 1px solid #ddd; }
+%b-999 { border: 1px solid #999; }
+%b-555 { border: 1px solid #555; }
+%b-333 { border: 1px solid #333; }
+%b-000 { border: 1px solid #000; }
+
+%b-top-fff { border-top: 1px solid #fff; }
+%b-top-f0 { border-top: 1px solid #f0f0f0; }
+%b-top-eee { border-top: 1px solid #eee; }
+%b-top-e5 { border-top: 1px solid #e5e5e5; }
+%b-top-e0 { border-top: 1px solid #e0e0e0; }
+%b-top-ccc { border-top: 1px solid #ccc; }
+%b-top-ddd { border-top: 1px solid #ddd; }
+%b-top-000 { border-top: 1px solid #000; }
+%b-top-dashed-e5 { border-top: 1px dashed #e5e5e5; }
+%b-top-dashed-999 { border-top: 1px dashed #999; }
+%b-top-dotted-e5 { border-top: dotted 1px #e5e5e5}
+%b-top-4-double-eee { border-top: 4px double #eee; }
+
+%b-bottom-fff { border-bottom: 1px solid #fff; }
+%b-bottom-f0 { border-bottom: 1px solid #f0f0f0; }
+%b-bottom-eee { border-bottom: 1px solid #eee; }
+%b-bottom-e5 { border-bottom: 1px solid #e5e5e5; }
+%b-bottom-ccc { border-bottom: 1px solid #ccc; }
+%b-bottom-000 { border-bottom: 1px solid #000; }
+%b-bottom-ddd { border-bottom: 1px solid #ddd; }
+%b-bottom-999 { border-bottom: 1px solid #999; }
+%b-bottom-555 { border-bottom: 1px solid #555; }
+%b-bottom-333 { border-bottom: 1px solid #333; }
+%b-bottom-222 { border-bottom: 1px solid #222; }
+%b-bottom-dashed-e5 { border-bottom: 1px dashed #e5e5e5; }
+%b-bottom-dashed-ccc { border-bottom: 1px dashed #ccc; }
+%b-bottom-dashed-999 { border-bottom: 1px dashed #999; }
+%b-bottom-dotted-e5 { border-bottom: dotted 1px #e5e5e5}
+%b-bottom-2-fff { border-bottom: 2px solid #fff; }
+%b-bottom-2-aaa { border-bottom: 2px solid #aaa; }
+%b-bottom-4-double-eee { border-bottom: 4px double #eee; }
+
+%b-left-none { border-right: 0; }
+%b-left-eee { border-left: 1px solid #eee; }
+%b-left-e5 { border-left: 1px solid #e5e5e5; }
+%b-left-ccc{ border-left: 1px solid #ccc; }
+%b-left-999 { border-left: 1px solid #999; }
+%b-left-555 { border-left: 1px solid #555; }
+%b-left-333 { border-left: 1px solid #333; }
+
+%b-right-none { border-right: 0; }
+%b-right-fff { border-right: 1px solid #fff; }
+%b-right-f0 { border-right: 1px solid #f0f0f0; }
+%b-right-eee { border-right: 1px solid #eee; }
+%b-right-e5 { border-right: 1px solid #e5e5e5; }
+%b-right-ddd { border-right: 1px solid #ddd; }
+%b-right-ccc { border-right: 1px solid #ccc; }
+%b-right-999 { border-right: 1px solid #999; }
+%b-right-555 { border-right: 1px solid #555; }
+%b-right-333 { border-right: 1px solid #333; }

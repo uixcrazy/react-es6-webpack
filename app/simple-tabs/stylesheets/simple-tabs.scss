@@ -1,14 +1,84 @@
-@import '../../../assets/stylesheets/fundamental/normalize';
-@import '../../../assets/stylesheets/vendors/react-css-transition-replace';
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:300,500,700,400");
+@import "../../../assets/stylesheets/fundamental/normalize";
+@import "../../../assets/stylesheets/fundamental/hhd-reset";
+@import "../../../assets/stylesheets/fundamental/mixins";
+@import "../../../assets/stylesheets/vendors/react-css-transition-replace";
 
 .simple-tabs {
-  // background: #0ff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  width: 100%;
+  font-size: 18px;
+  background: #f1f3f4;
+  // no select
+  @include user-select(none);
+  .labels {
+    position: relative;
+    display: -webkit-flex;
+    display:         flex;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 1200px;
+    list-style: none;
+    -ms-box-orient: horizontal;
+    -ms-box-pack: center;
+    -webkit-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-justify-content: center;
+            justify-content: center;
+    li {
+      position: relative;
+      z-index: 1;
+      display: block;
+      margin: 0;
+      text-align: center;
+      padding: 30px 0;
+      -webkit-flex: 1;
+              flex: 1;
+      &:before {
+        position: absolute;
+        top: 20%;
+        right: 0;
+        z-index: -1;
+        width: 2px;
+        height: 60%;
+        background: rgba(255,255,255,.5);
+        content: "";
+      }
+      &:hover {
+        background: #fff;
+        box-shadow: -1px 0 0 #fff;
+        &:before {
+          content: none;
+        }
+      }
+      &.active {
+        background: #fff;
+        box-shadow: -1px 0 0 #fff;
+        &:after {
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          z-index: -1;
+          margin-left: -10px;
+          width: 0;
+          height: 0;
+          border: solid transparent;
+          border-width: 10px;
+          border-top-color: #fff;
+          content: "";
+          pointer-events: none;
+          animation: fadeIn .3s linear;
+        }
+      }
+    }
+  }
   .st-content {
-    height: 300px;
-    width: 300px;
-    overflow: hidden;
-    display: block;
+    border-top: 2px solid #fff;
+    padding: 20px;
+    font-size: 16px;
   }
 }
-
-
