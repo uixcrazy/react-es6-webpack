@@ -1,0 +1,25 @@
+// @import "../../collapse/stylesheets/collapse";
+
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:300,500,700,400|Indie+Flower");
+@import "../../../assets/stylesheets/fundamental/normalize";
+@import "../../../assets/stylesheets/fundamental/hhd-reset";
+@import "../../../assets/stylesheets/fundamental/mixins";
+@import "../../../assets/stylesheets/vendors/react-css-transition-replace";
+
+.accordion {
+  position: relative;
+  .item {
+    .summary {
+      padding: 10px;
+      background: #f5f5f5;
+      display: block;
+      border-bottom: 1px solid #fff;
+    }
+    .details {
+      display: none;
+    }
+    &.active .details {
+      display: block;
+    }
+  }
+}
