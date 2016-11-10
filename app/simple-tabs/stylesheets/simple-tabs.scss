@@ -1,7 +1,8 @@
 @import "~normalize";
-@import "~animate/base";
-@import "~animate/fading_entrances/fadeInDown";
-@import "~animate/fading_exits/fadeOut";
+// @import "~animate/base";
+// @import "~animate/fading_entrances/fadeInDown";
+// @import "~animate/fading_exits/fadeOut";
+@import "../../../assets/stylesheets/vendors/react-css-transition-replace";
 @import "../../../assets/stylesheets/fundamental/hhd-reset";
 @import "../../../assets/stylesheets/fundamental/mixins";
 
