@@ -58,4 +58,11 @@ export default {
     new webpack.HotModuleReplacementPlugin(),
   ],
   profile: true,
+  resolve: {
+    extensions: ['', '.js', '.css', '.scss'],
+    alias: {
+      animate: path.join(__dirname, '../../node_modules/animate.css/source'),
+      normalize: path.join(__dirname, '../../node_modules/normalize.css')
+    }
+  },
 };
