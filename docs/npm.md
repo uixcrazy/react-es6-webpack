@@ -4,6 +4,6 @@
 
 [npm-check-updates](https://www.npmjs.com/package/npm-check-updates)
 
-- npm install -g npm-check-updates
-- npm-check-updates -u
+- `npm install -g npm-check-updates --save-dev`
+- `npm-check-updates -u`
 - npm install

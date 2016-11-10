@@ -18,22 +18,14 @@ export default {
   },
   module: {
     loaders: [
-      // {
-      //   test: /\.js?$/,
-      //   exclude: /(node_modules|ext-lib)/,
-      //   loader: 'babel',
-      //   query: {
-      //     plugins: ['transform-runtime'],
-      //   },
-      // },
-      // { test: /\.less$/, loader: 'style!css?sourceMap!less?sourceMap', },
       {
         test: /\.css$/,
-        loader: 'style!css?sourceMap'
+        loader: 'style!css?sourceMap',
       },
       {
         test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
+        // loaders: ["style", "css", "sass"] // compile to <style> tag
+        loaders: ["style", "css?sourceMap", "sass?sourceMap"],
       },
       {
         test: /\.(png|jpg|svg|gif|eot|woff|ttf)$/,
@@ -48,14 +40,19 @@ export default {
           plugins: ['transform-runtime'],
         }
       },
-      {
-        test: /ext-lib[\\\/].+\.js$/,
-        loader: 'imports?require=>false,module=>false,define=>false,exports=>undefined',
-      },
+
+      // {
+      //   test: /\.less$/,
+      //   loader: 'style!css?sourceMap!less?sourceMap',
+      // },
+      // {
+      //   test: /ext-lib[\\\/].+\.js$/,
+      //   loader: 'imports?require=>false,module=>false,define=>false,exports=>undefined',
+      // },
     ],
-    noParse: [
-      /ext-lib[\\\/].+\.js/i,
-    ],
+    // noParse: [
+    //   /ext-lib[\\\/].+\.js/i,
+    // ],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

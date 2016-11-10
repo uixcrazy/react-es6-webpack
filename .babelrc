@@ -4,6 +4,7 @@
   ],
   "plugins": [
     "transform-react-jsx",
-    "transform-object-assign"
+    "transform-object-assign",
+    "transform-class-properties"
   ]
 }
