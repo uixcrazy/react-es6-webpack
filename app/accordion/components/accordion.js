@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 // import Collapse from '../../collapse/components/collapse';
 
 class Accordion extends Component {
@@ -18,7 +19,6 @@ class Accordion extends Component {
 
   renderEachCollapse() {
     const accordionData = this.props.accordionData;
-    console.log('-----------------');
     const renderEachCollapse = accordionData.map((value, index) => {
       const isActive = (index == this.state.activeIndex) ?  'active' : '';
       return (
@@ -29,9 +29,16 @@ class Accordion extends Component {
           <a className="summary">
             {value.summary}
           </a>
-          <div className="details">
-            {value.details}
-          </div>
+          <ReactCSSTransitionGroup
+            transitionName="example"
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+            transitionEnter={false}
+            transitionLeave={false}>
+            <div className="details" key={index}>
+              {value.details}
+            </div>
+          </ReactCSSTransitionGroup>
         </li>
       )
     });

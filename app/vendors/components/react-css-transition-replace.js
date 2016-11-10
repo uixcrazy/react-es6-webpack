@@ -1,15 +1,22 @@
 /**
  * Adapted from ReactCSSTransitionGroup.js by Facebook
  *
+ * Github: https://github.com/marnusw/react-css-transition-replace
  * @providesModule ReactCSSTransitionReplace
  */
 
-import React from 'react';
+// import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import '../stylesheets/react-css-transition-replace.scss';
+
 
 import ReactCSSTransitionGroupChild from 'react/lib/ReactCSSTransitionGroupChild';
 
 const reactCSSTransitionGroupChild = React.createFactory(ReactCSSTransitionGroupChild);
+const _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 
 const TICK = 17;
 
@@ -220,23 +227,22 @@ export default class ReactCSSTransitionReplace extends React.Component {
     let transitionName = this.props.transitionName;
 
     if (typeof transitionName == 'object' && transitionName !== null) {
-      transitionName = { ...transitionName };
+      transitionName = _extends({}, transitionName);
       delete transitionName.height;
     }
 
     // We need to provide this childFactory so that
     // ReactCSSTransitionReplaceChild can receive updates to name,
     // enter, and leave while it is leaving.
-    return reactCSSTransitionGroupChild({
+    return reactCSSTransitionGroupChild(_extends({
       name: transitionName,
       appear: this.props.transitionAppear,
       enter: this.props.transitionEnter,
       leave: this.props.transitionLeave,
       appearTimeout: this.props.transitionAppearTimeout,
       enterTimeout: this.props.transitionEnterTimeout,
-      leaveTimeout: this.props.transitionLeaveTimeout,
-      ...moreProps
-    }, child);
+      leaveTimeout: this.props.transitionLeaveTimeout
+}, moreProps), child);
   }
 
   render() {
@@ -246,7 +252,9 @@ export default class ReactCSSTransitionReplace extends React.Component {
     const { overflowHidden, transitionName, component,
             transitionAppear, transitionEnter, transitionLeave,
             transitionAppearTimeout, transitionEnterTimeout, transitionLeaveTimeout,
-            ...containerProps } = this.props;
+            containerProps
+            // ...containerProps
+          } = this.props;
 
     if (currentChild) {
       childrenToRender.push(
@@ -267,12 +275,17 @@ export default class ReactCSSTransitionReplace extends React.Component {
         : `${transitionName}-height`;
 
       containerProps.className = `${containerProps.className || ''} ${heightClassName}`;
-      containerProps.style = {
-        ...containerProps.style,
+      // containerProps.style = {
+      //   ...containerProps.style,
+      //   position: 'relative',
+      //   display: 'block',
+      //   height
+      // };
+      containerProps.style = _extends({}, containerProps.style, {
         position: 'relative',
         display: 'block',
         height
-      };
+      });
 
       if (overflowHidden) {
         containerProps.style.overflow = 'hidden';
