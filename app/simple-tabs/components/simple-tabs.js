@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 // import ReactCSSTransitionReplace from '../../vendors/components/react-css-transition-replace';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class SimpleTabs  extends Component {
   constructor(props) {
@@ -52,23 +53,22 @@ class SimpleTabs  extends Component {
     });
     return label;
   }
- // <ReactCSSTransitionReplace
-        //   transitionName="cross-fade"  fade-wait
-        //   transitionEnterTimeout={1000}
-        //   transitionLeaveTimeout={1000}> 400
-        // <ReactCSSTransitionReplace
-        //     transitionName="cross-fade"
-        //     transitionEnterTimeout={1000}
-        //     transitionLeaveTimeout={1000}>
   render() {
     return (
       <div className="simple-tabs">
         <ul className="labels">
           {this.renderLabels()}
         </ul>
-          <div className="st-content" key={this.state.tabsItem.label}>
+        <ReactCSSTransitionGroup
+          transitionName="example"
+          transitionAppear={true}
+          transitionAppearTimeout={200}
+          transitionEnter={false}
+          transitionLeave={false}>
+          <div className="st-content animated fadeInDown" key={this.state.tabsItem.label}>
             {this.state.tabsItem.content}
           </div>
+        </ReactCSSTransitionGroup>
       </div>
     )
   }

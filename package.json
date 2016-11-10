@@ -21,6 +21,7 @@
     "url": "git@github.com:uixcrazy/react-es6-webpack.git"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
     "es6-promise": "^4.0.5",
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
