@@ -21,13 +21,12 @@
     "url": "git@github.com:uixcrazy/react-es6-webpack.git"
   },
   "dependencies": {
-    "animate.css": "^3.5.2",
     "es6-promise": "^4.0.5",
-    "normalize.css": "^5.0.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
   },
   "devDependencies": {
+    "animate.css": "^3.5.2",
     "babel-cli": "^6.14.0",
     "babel-core": "^6.14.0",
     "babel-eslint": "^7.1.0",
@@ -48,6 +47,7 @@
     "express": "^4.14.0",
     "jsdom": "^9.8.3",
     "mocha": "^3.1.2",
+    "normalize.css": "^5.0.0",
     "node-sass": "^3.10.0",
     "react-addons-css-transition-group": "^15.3.2",
     "react-addons-test-utils": "^15.3.2",

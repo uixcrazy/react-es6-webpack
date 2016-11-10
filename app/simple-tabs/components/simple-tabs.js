@@ -60,12 +60,14 @@ class SimpleTabs  extends Component {
           {this.renderLabels()}
         </ul>
         <ReactCSSTransitionGroup
-          transitionName="example"
-          transitionAppear={true}
-          transitionAppearTimeout={200}
-          transitionEnter={false}
-          transitionLeave={false}>
-          <div className="st-content animated fadeInDown" key={this.state.tabsItem.label}>
+            transitionName={{
+              enter: "fadeInDown",
+              leave: "fadeOut"
+            }}
+            transitionEnterTimeout={1000}
+            transitionLeaveTimeout={100}
+            >
+          <div className="st-content animated" key={this.state.tabsItem.label}>
             {this.state.tabsItem.content}
           </div>
         </ReactCSSTransitionGroup>

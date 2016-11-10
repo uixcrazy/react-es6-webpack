@@ -1,5 +1,7 @@
 @import "~normalize";
 @import "~animate/base";
+@import "~animate/fading_entrances/fadeInDown";
+@import "~animate/fading_exits/fadeOut";
 @import "../../../assets/stylesheets/fundamental/hhd-reset";
 @import "../../../assets/stylesheets/fundamental/mixins";
 
@@ -85,18 +87,3 @@
     background: #f1f3f4;
   }
 }
-
-
-
-
-// .example-appear {
-//   opacity: 0.01;
-// }
-
-// .example-appear.example-appear-active {
-//   opacity: 1;
-//   transition: opacity .5s ease-in;
-// }
-
-// * Cross-fade transition
-// ===========================================
