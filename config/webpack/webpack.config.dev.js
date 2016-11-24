@@ -11,6 +11,7 @@ export default {
     'simple-tabs': ['./app/simple-tabs/app.js', 'webpack/hot/dev-server'],
     collapse: ['./app/collapse/app.js', 'webpack/hot/dev-server'],
     accordion: ['./app/accordion/app.js', 'webpack/hot/dev-server'],
+    dropdown: ['./app/dropdown/app.js', 'webpack/hot/dev-server'],
   },
   output: {
     path: path.join(__dirname, '../../dist'),

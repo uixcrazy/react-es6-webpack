@@ -1,0 +1,113 @@
+@mixin dropdown($prefix, $width-dropdown, $height-dropdown) {
+  position: relative;
+  color: #aab2bd;
+
+  .#{$prefix}-option {
+    font-size: 13px;
+    padding-left: 5px;
+    line-height: $height-dropdown - 2px;
+    .icon {
+      position: relative;
+      top: 2px;
+      font-size: 16px;
+      height: 16px;
+      line-height: 16px;
+      vertical-align: middle;
+      margin-right: 5px;
+      &:before {
+        height: 16px;
+      }
+    }
+  }
+
+  .#{$prefix}-current {
+    position: relative;
+    border: solid 1px #e4e8ed;
+    border-radius: 2px;
+    width: $width-dropdown;
+    height: $height-dropdown;
+    background-color: #fff;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .#{$prefix}-arrow {
+    position: absolute;
+    right: 10px;
+    top: $height-dropdown/2  - 3px;
+    border-color: #999 transparent transparent;
+    border-style: solid;
+    border-width: 5px 5px 0;
+    content: ' ';
+    display: block;
+    height: 0;
+    width: 0;
+  }
+
+  .#{$prefix}-select {
+    width: $width-dropdown;
+    position: absolute;
+    top: $height-dropdown + 1px;
+    left: 0;
+    z-index: 1000;
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 12px;
+      width: 10px;
+      height: 5px;
+      box-sizing: border-box;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid #656d78;
+    }
+     ul {
+      margin-top: 5px;
+      background: #fff;
+      border-radius: 2px;
+      border-top: 5px solid #656d78;
+      box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2);
+      list-style-type: none;
+      -webkit-overflow-scrolling: touch;
+      li {
+        border-bottom: solid 1px #e6e9ed;
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  .#{$prefix}-noresults {
+    color: #ccc;
+    cursor: default;
+    display: block;
+    padding: 8px 10px;
+  }
+
+  &.is-open {
+    .#{$prefix}-arrow {
+      border-color: transparent transparent #999;
+      border-width: 0 5px 5px;
+    }
+  }
+}
+
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:300,500,700,400");
+@import "~normalize";
+@import "../../../assets/stylesheets/fundamental/hhd-reset";
+
+body {
+  padding: 20px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.dropdown {
+  @include dropdown("dropdown", 86px, 26px);
+  font-family:  "Roboto", Arial, Tahoma;
+}
