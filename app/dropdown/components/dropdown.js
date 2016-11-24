@@ -73,9 +73,8 @@ class Dropdown extends Component {
         key={value}
         className={`${this.props.baseClassName}-option`}
         onMouseDown={this.setValue.bind(this, value, label)}
-        onClick={this.setValue.bind(this, value, label)}>
-        {label}
-      </li>
+        onClick={this.setValue.bind(this, value, label)}
+        dangerouslySetInnerHTML={{ __html: label }} />
     )
   }
 
@@ -107,7 +106,7 @@ class Dropdown extends Component {
     const placeHolderValue = typeof this.state.selected === 'string'
       ? this.state.selected
       : this.state.selected.label;
-    const value = (<div className={`${baseClassName}-option`}>{placeHolderValue}</div>);
+    const value = (<div className={`${baseClassName}-option`} dangerouslySetInnerHTML={{ __html: placeHolderValue }} />);
 
     return (
       <div className={dropdownClass}>
