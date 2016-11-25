@@ -1,7 +1,7 @@
 @mixin dropdown($prefix, $width-dropdown, $height-dropdown) {
   position: relative;
   color: #aab2bd;
-
+  display: inline-block;
   .#{$prefix}-option {
     font-size: 13px;
     padding-left: 5px;
@@ -29,19 +29,19 @@
     background-color: #fff;
     cursor: pointer;
     outline: none;
-  }
-
-  .#{$prefix}-arrow {
-    position: absolute;
-    right: 10px;
-    top: $height-dropdown/2  - 3px;
-    border-color: #999 transparent transparent;
-    border-style: solid;
-    border-width: 5px 5px 0;
-    content: ' ';
-    display: block;
-    height: 0;
-    width: 0;
+    &:before {
+      content: "";
+      position: absolute;
+      right: 10px;
+      top: $height-dropdown/2  - 3px;
+      border-color: #999 transparent transparent;
+      border-style: solid;
+      border-width: 5px 5px 0;
+      content: ' ';
+      display: block;
+      height: 0;
+      width: 0;
+    }
   }
 
   .#{$prefix}-select {
@@ -60,14 +60,14 @@
       box-sizing: border-box;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
-      border-bottom: 5px solid #656d78;
+      border-bottom: 5px solid #818a96;
     }
      ul {
       margin-top: 5px;
       background: #fff;
       border-radius: 2px;
-      border-top: 5px solid #656d78;
-      box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2);
+      border-top: 3px solid #818a96;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2);
       list-style-type: none;
       -webkit-overflow-scrolling: touch;
       li {
@@ -87,9 +87,11 @@
   }
 
   &.is-open {
-    .#{$prefix}-arrow {
-      border-color: transparent transparent #999;
-      border-width: 0 5px 5px;
+    .#{$prefix}-current {
+      &:before {
+        border-color: transparent transparent #999;
+        border-width: 0 5px 5px;
+      }
     }
   }
 }

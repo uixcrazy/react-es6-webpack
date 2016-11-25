@@ -106,15 +106,14 @@ class Dropdown extends Component {
     const placeHolderValue = typeof this.state.selected === 'string'
       ? this.state.selected
       : this.state.selected.label;
-    const value = (<div className={`${baseClassName}-option`} dangerouslySetInnerHTML={{ __html: placeHolderValue }} />);
 
     return (
       <div className={dropdownClass}>
         <div className={`${baseClassName}-current ${disabledClass}`}
           onMouseDown={this.handleMouseDown.bind(this)}
           onTouchEnd={this.handleMouseDown.bind(this)}>
-          {value}
-          <span className={`${baseClassName}-arrow`} />
+          <div className={`${baseClassName}-option`}
+            dangerouslySetInnerHTML={{ __html: placeHolderValue }} />
         </div>
         { this.state.isOpen ? this.renderSelect() : null }
       </div>
