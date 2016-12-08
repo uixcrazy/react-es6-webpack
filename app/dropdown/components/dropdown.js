@@ -11,7 +11,7 @@ class Dropdown extends Component {
       },
       isOpen: false
     }
-    this.mounted = true
+    this.mounted = true;
     this.handleDocumentClick = this.handleDocumentClick.bind(this)
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
   }
@@ -25,6 +25,7 @@ class Dropdown extends Component {
   }
 
   componentDidMount () {
+    console.log(this.DOM.ownerDocument);
     document.addEventListener('click', this.handleDocumentClick, false)
     document.addEventListener('touchend', this.handleDocumentClick, false)
   }
@@ -108,7 +109,7 @@ class Dropdown extends Component {
       : this.state.selected.label;
 
     return (
-      <div className={dropdownClass}>
+      <div className={dropdownClass} ref={ DOM => this.DOM = DOM }>
         <div className={`${baseClassName}-current ${disabledClass}`}
           onMouseDown={this.handleMouseDown.bind(this)}
           onTouchEnd={this.handleMouseDown.bind(this)}>

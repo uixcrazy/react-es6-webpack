@@ -5,19 +5,18 @@
   .#{$prefix}-option {
     font-size: 13px;
     padding-left: 5px;
+    // padding-left: 25px;
     line-height: $height-dropdown - 2px;
-    .icon {
-      position: relative;
-      top: 2px;
-      font-size: 16px;
-      height: 16px;
-      line-height: 16px;
-      vertical-align: middle;
-      margin-right: 5px;
-      &:before {
-        height: 16px;
-      }
-    }
+    // .icon {
+    //   position: absolute;
+    //   left: 5px;
+    //   top: ($height-dropdown - 16px) /2;
+    //   font-size: 16px;
+    //   &:before {
+    //     display: inline-block;
+    //     vertical-align: top;
+    //   }
+    // }
   }
 
   .#{$prefix}-current {
