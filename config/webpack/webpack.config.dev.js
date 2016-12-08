@@ -12,6 +12,7 @@ export default {
     collapse: ['./app/collapse/app.js', 'webpack/hot/dev-server'],
     accordion: ['./app/accordion/app.js', 'webpack/hot/dev-server'],
     dropdown: ['./app/dropdown/app.js', 'webpack/hot/dev-server'],
+    'react-collapse': ['./app/react-collapse/app.js', 'webpack/hot/dev-server'],
   },
   output: {
     path: path.join(__dirname, '../../dist'),
