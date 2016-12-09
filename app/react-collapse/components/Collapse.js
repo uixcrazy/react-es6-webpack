@@ -1,55 +1,36 @@
-import React from 'react';
-import {shouldComponentUpdate} from 'react/lib/ReactComponentWithPureRenderMixin';
-import {Motion, spring} from 'react-motion';
-import HeightReporter from 'react-height';
+import React, { Component, PropTypes } from 'react';
+import { Motion, spring } from 'react-motion';
+import HeightReporter from './react-height';
 
 
 const PRECISION = 0.5;
 
 
 const stringHeight = height => Math.max(0, parseFloat(height)).toFixed(1);
-
-
-const Collapse = React.createClass({
-  propTypes: {
-    isOpened: React.PropTypes.bool.isRequired,
-    children: React.PropTypes.node.isRequired,
-    fixedHeight: React.PropTypes.number,
-    style: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-    springConfig: React.PropTypes.objectOf(React.PropTypes.number),
-    keepCollapsedContent: React.PropTypes.bool,
-    onRest: React.PropTypes.func,
-    onHeightReady: React.PropTypes.func
-  },
-
-
-  getDefaultProps() {
-    return {
-      fixedHeight: -1,
-      style: {},
-      keepCollapsedContent: false,
-      onHeightReady: () => {} // eslint-disable-line no-empty-function
+class Collapse extends Component {
+  constructor(props) {
+    super(props);
+    this.onHeightReady = this.onHeightReady.bind(this);
+    this.getMotionHeight = this.getMotionHeight.bind(this);
+    this.renderFixed = this.renderFixed.bind(this);
+    this.state = {
+      height: -1,
+      isOpenedChanged: false
     };
-  },
-
-
-  getInitialState() {
-    return {height: -1, isOpenedChanged: false};
-  },
-
+  }
   componentWillMount() {
     this.height = stringHeight(0);
     this.renderStatic = true;
-  },
+  }
 
 
   componentWillReceiveProps({isOpened}) {
     this.setState({isOpenedChanged: isOpened !== this.props.isOpened});
-  },
+  }
 
-
-  shouldComponentUpdate,
-
+  shouldComponentUpdate() {
+    return false;
+  }
 
   componentDidUpdate({isOpened}) {
     if (isOpened !== this.props.isOpened) {
@@ -57,11 +38,10 @@ const Collapse = React.createClass({
 
       this.props.onHeightReady(report);
     }
-  },
-
+  }
 
   onHeightReady(height) {
-    const {isOpened, onHeightReady} = this.props;
+    const { isOpened, onHeightReady } = this.props;
 
     if (this.renderStatic && isOpened) {
       this.height = stringHeight(height);
@@ -74,7 +54,7 @@ const Collapse = React.createClass({
     if (this.state.height !== reportHeight) {
       onHeightReady(reportHeight);
     }
-  },
+  }
 
 
   getMotionHeight(height) {
@@ -95,7 +75,7 @@ const Collapse = React.createClass({
     const instantHeight = isOpened ? Math.max(0, height) : 0;
 
     return skipAnimation ? instantHeight : springHeight;
-  },
+  }
 
 
   renderFixed() {
@@ -141,7 +121,7 @@ const Collapse = React.createClass({
         }}
       </Motion>
     );
-  },
+  }
 
 
   render() {
@@ -228,7 +208,25 @@ const Collapse = React.createClass({
       </Motion>
     );
   }
-});
 
+}
+
+Collapse.defaultProps = {
+  fixedHeight: -1,
+  style: {},
+  keepCollapsedContent: false,
+  onHeightReady: () => {} // eslint-disable-line no-empty-function
+};
+
+Collapse.propTypes = {
+  isOpened: React.PropTypes.bool.isRequired,
+  children: React.PropTypes.node.isRequired,
+  fixedHeight: React.PropTypes.number,
+  style: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  springConfig: React.PropTypes.objectOf(React.PropTypes.number),
+  keepCollapsedContent: React.PropTypes.bool,
+  onRest: React.PropTypes.func,
+  onHeightReady: React.PropTypes.func,
+};
 
 export default Collapse;
