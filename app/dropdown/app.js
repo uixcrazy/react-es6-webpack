@@ -4,4 +4,4 @@ import { render } from 'react-dom';
 import Test from './components/test';
 import './stylesheets/dropdown.scss';
 
-render( <Test />, document.getElementById('app'));
+render(<Test />, document.getElementById('app'));

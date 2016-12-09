@@ -34,7 +34,7 @@ class Test extends Component {
           onChange={_onSelect}
           value={defaultOption} />
         <Dropdown
-          disable
+          disabled
           options={options}
           onChange={_onSelect}
           value={defaultOption} />
