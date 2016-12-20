@@ -7,6 +7,7 @@ export default {
   devtool: 'source-map',
   entry: {
     demo01: ['./app/demo01/app.js', 'webpack/hot/dev-server'],
+    'demo-img': ['./app/demo-img/app.js', 'webpack/hot/dev-server'],
     'demo-context': ['./app/demo-context/app.js', 'webpack/hot/dev-server'],
     'simple-tabs': ['./app/simple-tabs/app.js', 'webpack/hot/dev-server'],
     collapse: ['./app/collapse/app.js', 'webpack/hot/dev-server'],
@@ -32,7 +33,7 @@ export default {
       },
       {
         test: /\.(png|jpg|svg|gif|eot|woff|ttf)$/,
-        loader: 'file-loader',
+        loader: 'file-loader?name=[path][name].[ext]',
       },
       {
         test: /\.js$/,
