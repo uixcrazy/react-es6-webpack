@@ -20,7 +20,7 @@ export default class App extends Component {
   }
 
   render() {
-    const allFileArr = this.requireAll(require.context('./images', true, /^\.\/.*\.jpg$/));
+    const allFileArr = this.requireAll(require.context('!!file-loader?name=[name].[ext]!./images', true, /^\.\/.*\.jpg$/));
     const allFile = this.toObject(allFileArr);
     console.log(allFile);
     // console.log(this.availImages); --> static function
