@@ -2,7 +2,7 @@
 react, es6, sass, webpack
 
 ##### run project
-`npm run env:dev`
+`npm start`
 
 ##### port
 `9009`
