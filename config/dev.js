@@ -23,6 +23,10 @@ const server = new WebpackDevServer(webpack(config), {
   // webpack-dev-middleware options
   quiet: false,
   noInfo: false,
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000,
+  },
 });
 
 router.get('/demo', (req, res) => {

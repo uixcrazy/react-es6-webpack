@@ -1,0 +1,118 @@
+
+body {
+  padding: 50px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  // box-sizing: border-box;
+}
+
+.box {
+  width: 250px;
+  height: 200px;
+  padding: 20px;
+  background: #000;
+  position: relative;
+  border: 30px solid #ccc;
+  // border-left: 30px solid #ccc;
+  // margin-top: 1000px;
+  .aaa {
+    float: right;
+  }
+  .bbb {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  .ccc {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  .item {
+    background: #fff;
+    padding: 10px;
+    margin-top: 30px;
+    position: relative;
+    .hhdtooltip {
+      color: #000;
+      position: absolute;
+    }
+  }
+  a,
+  span, p {
+    color: #fff;
+    margin: 20px;
+    cursor: pointer;
+    // position: relative;
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+
+
+//
+// Tooltips
+// --------------------------------------------------
+$zindex-tooltip: 1000;
+$tooltip-max-width: 200px;
+$tooltip-color: #2e4052;
+$tooltip-bg: #f7f7f7;
+$tooltip-arrow-color: #ccc;
+$tooltip-color-border: #ccc;
+$tooltip-opacity: .9;
+$tooltip-arrow-width: 5px;
+
+.tooltip {
+  position: absolute;
+  z-index: $zindex-tooltip;
+  display: none;
+  // opacity: 0;
+  // filter: alpha(opacity=0);
+  .tooltip-inner {
+    max-width: $tooltip-max-width;
+    padding: 3px 8px;
+    color: $tooltip-color;
+    text-align: center;
+    background-color: $tooltip-bg;
+    border-radius: 3px;
+    border: 1px solid $tooltip-color-border;
+  }
+  .tooltip-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+  }
+  &.in {
+    display: block;
+    // opacity: $tooltip-opacity;
+    // filter: alpha(opacity=$tooltip-opacity);
+  }
+  &.top {
+    margin-top: -3px;
+    padding: $tooltip-arrow-width 0;
+    .tooltip-arrow {
+      bottom: 0;
+      left: 50%;
+      margin-left: -$tooltip-arrow-width;
+      border-width: $tooltip-arrow-width $tooltip-arrow-width 0;
+      border-top-color: $tooltip-arrow-color;
+    }
+  }
+  &.bottom {
+    margin-top: 3px;
+    padding: $tooltip-arrow-width 0;
+    .tooltip-arrow {
+      top: 0;
+      left: 50%;
+      margin-left: -$tooltip-arrow-width;
+      border-width: 0 $tooltip-arrow-width $tooltip-arrow-width;
+      border-bottom-color: $tooltip-arrow-color;
+    }
+  }
+}

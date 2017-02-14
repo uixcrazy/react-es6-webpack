@@ -12,14 +12,16 @@ import { DEV_PORT, HOST_NAME } from './const';
 export default {
 
   entry: {
-    demo01: ['./app/demo01/app.js', 'webpack/hot/dev-server'],
-    'demo-img': ['./app/demo-img/app.js', 'webpack/hot/dev-server'],
-    'demo-context': ['./app/demo-context/app.js', 'webpack/hot/dev-server'],
-    'simple-tabs': ['./app/simple-tabs/app.js', 'webpack/hot/dev-server'],
-    collapse: ['./app/collapse/app.js', 'webpack/hot/dev-server'],
-    accordion: ['./app/accordion/app.js', 'webpack/hot/dev-server'],
-    dropdown: ['./app/dropdown/app.js', 'webpack/hot/dev-server'],
-    'react-collapse': ['./app/react-collapse/app.js', 'webpack/hot/dev-server'],
+    // demo01: ['./app/demo01/app.js', 'webpack/hot/dev-server'],
+    // 'demo-img': ['./app/demo-img/app.js', 'webpack/hot/dev-server'],
+    // 'demo-context': ['./app/demo-context/app.js', 'webpack/hot/dev-server'],
+    // 'simple-tabs': ['./app/simple-tabs/app.js', 'webpack/hot/dev-server'],
+    // collapse: ['./app/collapse/app.js', 'webpack/hot/dev-server'],
+    // accordion: ['./app/accordion/app.js', 'webpack/hot/dev-server'],
+    // dropdown: ['./app/dropdown/app.js', 'webpack/hot/dev-server'],
+    // 'react-collapse': ['./app/react-collapse/app.js', 'webpack/hot/dev-server'],
+    'react-tooltip': ['./app/react-tooltip/app.js', 'webpack/hot/dev-server'],
+    tooltip: ['./app/tooltip/app.js', 'webpack/hot/dev-server'],
   },
 
   output: {
@@ -86,6 +88,7 @@ export default {
     alias: {
       "animate": path.resolve(__dirname, '../../node_modules/animate.css/source'),
       "normalize": path.resolve(__dirname, "../node_modules/normalize.css"),
+      "isotip": path.resolve(__dirname, "../assets/javascripts/isotip.js"),
     },
   },
 
