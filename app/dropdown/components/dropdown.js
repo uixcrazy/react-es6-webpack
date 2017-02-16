@@ -25,7 +25,7 @@ class Dropdown extends Component {
   }
 
   componentDidMount() {
-    console.log(this.DOM.ownerDocument);
+    // console.log(this.DOM.ownerDocument);
     document.addEventListener('click', this.handleDocumentClick, false);
     document.addEventListener('touchend', this.handleDocumentClick, false);
   }
@@ -60,15 +60,15 @@ class Dropdown extends Component {
     this.setState(newState);
   }
 
-  fireChangeEvent (newState) {
+  fireChangeEvent(newState) {
     if (newState.selected !== this.state.selected && this.props.onChange) {
       this.props.onChange(newState.selected);
     }
   }
 
-  renderOption (option) {
-    let value = option.value || option.label || option;
-    let label = option.label || option.value || option;
+  renderOption(option) {
+    const value = option.value || option.label || option;
+    const label = option.label || option.value || option;
     return (
       <li
         key={value}
@@ -81,7 +81,7 @@ class Dropdown extends Component {
 
   renderSelect() {
     const { options, baseClassName } = this.props;
-    const ops = options.map((option) => this.renderOption(option));
+    const ops = options.map(option => this.renderOption(option));
     return ops.length
       ?
       <div className={`${baseClassName}-select`}>
@@ -90,7 +90,7 @@ class Dropdown extends Component {
       : <div className={`${baseClassName}-noresults`}>No options found</div>;
   }
 
-  handleDocumentClick (event) {
+  handleDocumentClick(event) {
     if (this.mounted) {
       if (!ReactDOM.findDOMNode(this).contains(event.target)) {
         this.setState({ isOpen: false });
@@ -98,7 +98,7 @@ class Dropdown extends Component {
     }
   }
 
-  render () {
+  render() {
     const { baseClassName } = this.props;
     const disabledClass = this.props.disabled ? `${baseClassName}-disabled` : '';
     const dropdownClass = `${baseClassName} ${this.state.isOpen ? 'is-open' : ''}`;
@@ -120,5 +120,13 @@ class Dropdown extends Component {
   }
 }
 
-Dropdown.defaultProps = { baseClassName: 'dropdown' };
+Dropdown.defaultProps = {
+  baseClassName: 'dropdown',
+  disabled: false,
+  placeholder: null, // string
+  options: [],
+  value: {},
+  // onChange: emptyFunc,
+};
+
 export default Dropdown;
