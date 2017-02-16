@@ -1,0 +1,31 @@
+@mixin theme($background-color) {
+  background-color: $background-color;
+  &.top {
+    &:after {
+      border-top-color: $background-color;
+      border-top-style: solid;
+      border-top-width: 6px;
+    }
+  }
+  &.bottom {
+    &:after {
+      border-bottom-color: $background-color;
+      border-bottom-style: solid;
+      border-bottom-width: 6px;
+    }
+  }
+  &.left {
+    &:after {
+      border-left-color: $background-color;
+      border-left-style: solid;
+      border-left-width: 6px;
+    }
+  }
+  &.right {
+    &:after {
+      border-right-color: $background-color;
+      border-right-style: solid;
+      border-right-width: 6px;
+    }
+  }
+}
