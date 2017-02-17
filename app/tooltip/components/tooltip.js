@@ -11,9 +11,6 @@ class Tooltip extends Component {
     this.state = {
       place: 'top', // Direction of tooltip
       show: false,
-      // border: false,
-      offset: {},
-      // extraClass: '',
       // html: false,
       delayHide: 0,
       delayShow: 0,
@@ -23,7 +20,7 @@ class Tooltip extends Component {
       currentTarget: null, // Current target of mouse event
       isEmptyTip: false,
       disable: false,
-      container: null,
+      container: null, // Appends the tooltip to a specific element, default body
       tooltipElm: null,
     };
 
@@ -38,6 +35,7 @@ class Tooltip extends Component {
     this.delayShowLoop = null;
     this.delayHideLoop = null;
     this.intervalUpdateContent = null;
+    this._document = this.props.isIframe ? this.props.isIframe.contentDocument : document;
   }
 
   /**
@@ -50,16 +48,14 @@ class Tooltip extends Component {
   }
 
   componentDidMount() {
-    this.createTooltip(this.props.dataTooltip);
+    this.createTooltip();
     this.bindListener();
     this.bindWindowEvents(this.props.resizeHide);
   }
 
   componentWillUnmount() {
     this.mount = false;
-
     this.clearTimer();
-
     this.unbindListener();
     this.unbindWindowEvents();
   }
@@ -69,9 +65,6 @@ class Tooltip extends Component {
    * These listeners used to trigger showing or hiding the tooltip
    */
   bindListener() {
-    if (this.DOM.getAttribute('currentItem') === null) {
-      this.DOM.setAttribute('currentItem', 'false');
-    }
     this.unbindBasicListener(this.DOM);
     this.DOM.addEventListener('mouseenter', this.showTooltip);
     this.DOM.addEventListener('mousemove', this.updateTooltip);
@@ -79,7 +72,7 @@ class Tooltip extends Component {
   }
 
   bindWindowEvents(resizeHide) {
-    // Resize
+    // Resize window
     if (resizeHide) {
       window.removeEventListener('resize', this.onWindowResize);
       window.addEventListener('resize', this.onWindowResize, false);
@@ -90,7 +83,7 @@ class Tooltip extends Component {
    * invoked by resize event of window
    */
   onWindowResize() {
-    if (!this.mount) return
+    if (!this.mount) return;
     this.hideTooltip();
   }
 
@@ -128,16 +121,21 @@ class Tooltip extends Component {
    * When mouse hover, updatetooltip
    */
   updateTooltip(e) {
+    const { isEmptyTip, disable, tooltipElm, delayShow, show } = this.state;
+    if (isEmptyTip || disable) return; // if the tooltip is empty, disable the tooltip
+    tooltipElm.classList.add('show');
+    // const tooltipText = this._document.createTextNode(this.props.dataTooltip);
+    // tooltipElm.appendChild(tooltipText);
+    // ↓↓↓
+    tooltipElm.innerHTML = this.props.dataTooltip;
 
-    this.state.tooltipElm.classList.add('show');
+    tooltipElm.classList.remove('top', 'bottom', 'right', 'left');
+    tooltipElm.classList.add(this.state.place);
 
-    this.state.tooltipElm.classList.add('top');
-    const { delayShow, show, isEmptyTip, disable } = this.state;
     const { afterShow } = this.props;
     const delayTime = show ? 0 : parseInt(delayShow, 10);
     const eventTarget = e.currentTarget;
 
-    if (isEmptyTip || disable) return; // if the tooltip is empty, disable the tooltip
     const updateState = () => {
       // if (Array.isArray(placeholder) && placeholder.length > 0 || placeholder) {
       const isInvisible = !this.state.show;
@@ -164,12 +162,13 @@ class Tooltip extends Component {
    * When mouse leave, hide tooltip
    */
   hideTooltip(e) {
-    const { delayHide, isEmptyTip, disable } = this.state;
+    if (!e || !(this.DOM === e.currentTarget) || !this.state.show) return;
+
+    const { delayHide, isEmptyTip, disable, tooltipElm } = this.state;
     const { afterHide } = this.props;
     if (!this.mount) return;
     if (isEmptyTip || disable) return; // if the tooltip is empty, disable the tooltip
-    const isMyElement = this.DOM === e.currentTarget;
-    if (!isMyElement || !this.state.show) return;
+
     const resetState = () => {
       const isVisible = this.state.show;
       this.setState({
@@ -177,7 +176,7 @@ class Tooltip extends Component {
       }, () => {
         if (isVisible && afterHide) afterHide();
       });
-      this.state.tooltipElm.classList.remove('show');
+      tooltipElm.classList.remove('show');
     };
 
     this.clearTimer();
@@ -190,12 +189,11 @@ class Tooltip extends Component {
 
   // Calculation the position
   updatePosition() {
-    const { currentEvent, currentTarget, tooltipElm, place, offset } = this.state;
-    const node = this.state.tooltipElm;
-    const result = getPosition(currentEvent, currentTarget, tooltipElm, place, offset);
+    const { currentEvent, currentTarget, container, tooltipElm, place } = this.state;
+    const { offset } = this.props;
+    const result = getPosition(currentEvent, currentTarget, container, tooltipElm, place, offset);
 
     if (result.isNewState) {
-      console.log('Switch to reverse placement');
       // Switch to reverse placement
       return this.setState(result.newState, () => {
         this.updatePosition();
@@ -203,8 +201,8 @@ class Tooltip extends Component {
     }
 
     // Set tooltip position
-    node.style.left = `${result.position.left}px`;
-    node.style.top = `${result.position.top}px`;
+    tooltipElm.style.left = `${result.position.left}px`;
+    tooltipElm.style.top = `${result.position.top}px`;
   }
 
   /**
@@ -216,15 +214,33 @@ class Tooltip extends Component {
     clearInterval(this.intervalUpdateContent);
   }
 
-  createTooltip(text) {
-    const container = document.querySelector(this.props.container);
+  createTooltip() {
+    const { baseClassName, mobile } = this.props;
 
-    const tooltipElm = document.createElement('div');
-    const tooltipText = document.createTextNode(text);
+    if (!mobile && !!('ontouchstart' in window)) {
+      // check for touch device - behaviour and events for touch device
+      this.setState({ disable: true });
+      // ↑↑↑ don't show tooltip at mobile
+    }
 
-    tooltipElm.setAttribute('class', `${this.props.baseClassName}`);
-    tooltipElm.appendChild(tooltipText);
-    container.appendChild(tooltipElm);
+    let container = this._document.querySelector(this.props.container);
+    let tooltipElm = this._document.querySelector(`.${baseClassName}`);
+    if (!container) {
+      container = this._document.querySelector('body');
+    }
+
+    if (container && !tooltipElm) {
+      this.setState({ disable: true });
+    }
+    // ↑↑↑ React Component doesn't work with appendChild
+    // you have to include: <div class=```${baseClassName}```></div>
+
+    if (!tooltipElm) {
+      tooltipElm = this._document.createElement('div');
+      tooltipElm.setAttribute('class', `${baseClassName}`);
+      container.appendChild(tooltipElm);
+    }
+
     this.setState({ container, tooltipElm });
   }
 
@@ -250,6 +266,34 @@ Tooltip.defaultProps = {
   afterShow: null, // PropTypes.func ::: Function that will be called after tooltip show
   afterHide: null, // PropTypes.func ::: Function that will be called after tooltip hide
   disable: false, // ::: Disable the tooltip behaviour, default is false
+  isIframe: null,
+};
+
+
+Tooltip.defaultProps = {
+  baseClassName: 'tooltip',
+  container: 'body',
+  dataTooltip: '',
+  place: 'top',
+  offset: { // with cursor
+    top: 5,
+    left: 5,
+    // bottom: 10,
+    // right: 10,
+  }, // top, right, bottom, left
+  resizeHide: true, // Hide the tooltip when resizing the window
+  afterShow: null, // PropTypes.func ::: Function that will be called after tooltip show
+  afterHide: null, // PropTypes.func ::: Function that will be called after tooltip hide
+  disable: false, // ::: Disable the tooltip behaviour, default is false
+  isIframe: null,
+  mobile: false, // Default don't support mobile
 };
 
 export default Tooltip;
+
+// How to use ↓↓↓
+// <Tooltip
+//   dataTooltip={tooltipContent}
+//   isIframe={props.config.iframeInstance}
+//   container=".sf-widget-content"
+// >

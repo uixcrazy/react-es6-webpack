@@ -16,15 +16,17 @@
  */
 
 /* eslint-disable */
-export default function (e, target, node, place, offset) {
+export default function (e, target, container, node, place, offset) {
   const tipWidth = node.clientWidth
   const tipHeight = node.clientHeight
   const {mouseX, mouseY} = getCurrentOffset(e, target)
   const defaultOffset = getDefaultPosition(target.clientWidth, target.clientHeight, tipWidth, tipHeight)
   const {extraOffset_X, extraOffset_Y} = calculateOffset(offset)
 
-  const windowWidth = window.innerWidth
-  const windowHeight = window.innerHeight
+  const windowWidth = container.clientWidth;
+  const windowHeight = container.clientHeight;
+  // const windowWidth = window.innerWidth
+  // const windowHeight = window.innerHeight
 
   const {parentTop, parentLeft} = getParent(node)
 
@@ -171,16 +173,18 @@ const getCurrentOffset = (e, currentTarget) => {
   const targetWidth = currentTarget.clientWidth
   const targetHeight = currentTarget.clientHeight
 
+  console.log(e);
+
   // if (effect === 'float') {
-  return {
-    mouseX: e.clientX,
-    mouseY: e.clientY
-  }
-  // }
   // return {
-  //   mouseX: targetLeft + (targetWidth / 2),
-  //   mouseY: targetTop + (targetHeight / 2)
+  //   mouseX: e.clientX,
+  //   mouseY: e.clientY
   // }
+  // }
+  return {
+    mouseX: targetLeft + (targetWidth / 2),
+    mouseY: targetTop + (targetHeight / 2)
+  }
 }
 
 // List all possibility of tooltip final offset

@@ -6,7 +6,7 @@ class Demo extends Component {
     return (
       <div>
         <div className="demonstration">
-          <a data-tip="React-tooltip"> ◕‿‿◕ </a>
+          <a data-tip="React-tooltip" data-offset="{'top': 10, 'left': 10}"> ◕‿‿◕ </a>
           <ReactTooltip place="bottom" type="success" effect="float"/>
         </div>
         <div className="box">
@@ -24,7 +24,8 @@ class Demo extends Component {
             aria-haspopup='true'
             type="warning"
             effect="float"
-          >
+            border="true">
+
             <p>This is a global react component tooltip</p>
             <p>You can put every thing here</p>
             <ul>

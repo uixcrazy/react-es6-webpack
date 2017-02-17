@@ -9,17 +9,21 @@ import './stylesheets/main.scss';
 
 render(
   <div>
-    <DemoA />
-
     <div className="box">
       <Tooltip
-        dataTooltip="Hooray! option specifies the tooltip placement mouse"
+        dataTooltip="Themen sind geordnet nach der Ver&auml;nderung der Anzahl an Nachrichten der letzten 24 Stunden im Vergleich zur durchschnittlichen Anzahl."
         container=".box"
       >
         <div className="item">fsdafsfhdfghfdg</div>
       </Tooltip>
       <Tooltip
         dataTooltip="Hooray! option specifies the tooltip position. This is second box"
+        container=".box"
+      >
+        <div className="item">fsdafsfhdfghfdg</div>
+      </Tooltip>
+      <Tooltip
+        dataTooltip="Hooray! option specifies the tooltip position. This is thirth box"
         container=".box"
       >
         <div className="item">fsdafsfhdfghfdg</div>

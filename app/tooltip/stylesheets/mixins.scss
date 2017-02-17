@@ -1,31 +1,22 @@
-@mixin theme($background-color) {
-  background-color: $background-color;
-  &.top {
-    &:after {
-      border-top-color: $background-color;
-      border-top-style: solid;
-      border-top-width: 6px;
-    }
+@mixin mixin-placement($p1, $p2, $p3, $p4, $p5, $p6 ) { // top, bottom, left, right, left
+  margin-#{$p5}: -$tooltip-arrow-width;
+  border: 1px solid $tooltip-border-color;
+  &:before {
+    #{$p2}: -($tooltip-arrow-width + 2);
+    #{$p6}: 50%;
+    margin-#{$p6}: -($tooltip-arrow-width + 4);
+    border-#{$p3}: ($tooltip-arrow-width + 4) solid transparent;
+    border-#{$p4}: ($tooltip-arrow-width + 4) solid transparent;
+    border-#{$p1}: ($tooltip-arrow-width + 2) solid $tooltip-border-color; // has border
   }
-  &.bottom {
-    &:after {
-      border-bottom-color: $background-color;
-      border-bottom-style: solid;
-      border-bottom-width: 6px;
-    }
-  }
-  &.left {
-    &:after {
-      border-left-color: $background-color;
-      border-left-style: solid;
-      border-left-width: 6px;
-    }
-  }
-  &.right {
-    &:after {
-      border-right-color: $background-color;
-      border-right-style: solid;
-      border-right-width: 6px;
-    }
+  &:after {
+    border-#{$p1}-style: solid;
+    border-#{$p1}-color: $tooltip-arrow-color;
+    #{$p2}: -$tooltip-arrow-width;
+    #{$p6}: 50%;
+    margin-#{$p6}: -($tooltip-arrow-width + 2);
+    border-#{$p3}: ($tooltip-arrow-width + 2) solid transparent;
+    border-#{$p4}: ($tooltip-arrow-width + 2) solid transparent;
+    border-#{$p1}-width: $tooltip-arrow-width;
   }
 }
