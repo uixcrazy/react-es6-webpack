@@ -4,8 +4,8 @@
  * @params
  * - `e` {Event} the event of current mouse
  * - `target` {Element} the currentTarget of the event
-  * - `container`
- * - `node` {DOM} the react-tooltip object
+ * - `viewport` {Object} keeps the tooltip within the bounds of this.
+ * - `node` {DOM} the react-tooltip object -----~----- tooltipElm
  * - `place` {String} top / right / bottom / left
  * - `isFollowMouse` {String} float / solid            ← -------- effect
  * - `offset` {Object} the offset to default position
@@ -17,17 +17,21 @@
  */
 
 /* eslint-disable */
-export default function (e, target, container, node, place, isFollowMouse, offset) {
+export default function (e, target, viewportSelector, node, place, isFollowMouse, offset) {
   const tipWidth = node.clientWidth
   const tipHeight = node.clientHeight
   const {mouseX, mouseY} = getCurrentOffset(e, target, isFollowMouse)
   const defaultOffset = getDefaultPosition(isFollowMouse, target.clientWidth, target.clientHeight, tipWidth, tipHeight)
   const {extraOffset_X, extraOffset_Y} = calculateOffset(offset)
 
-  // const windowWidth = container.clientWidth;
-  // const windowHeight = container.clientHeight;
-  const windowWidth = window.innerWidth
-  const windowHeight = window.innerHeight
+  const windowWidth = viewportSelector.clientWidth;
+  const windowHeight = viewportSelector.clientHeight;
+
+   // const widthTooltipEl = tooltipEl.offsetWidth;
+   //  const heightTooltipEl = tooltipEl.offsetHeight;
+
+  // const windowWidth = window.innerWidth
+  // const windowHeight = window.innerHeight
 
   const {parentTop, parentLeft} = getParent(node)
 
@@ -171,7 +175,7 @@ const getCurrentOffset = (e, currentTarget, isFollowMouse) => {
   const boundingClientRect = currentTarget.getBoundingClientRect()
   const targetTop = boundingClientRect.top
   const targetLeft = boundingClientRect.left
-  const targetWidth = currentTarget.clientWidth
+  const targetWidth = currentTarget.clientWidth; // width of tooltip item
   const targetHeight = currentTarget.clientHeight
 
   if (isFollowMouse) {
