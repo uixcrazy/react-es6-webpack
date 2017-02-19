@@ -2,25 +2,23 @@
  * reference: https://github.com/wwayne/react-tooltip
  */
 import React, { Component } from 'react'; // eslint-disable-line
-
 import getPosition from './getPosition';
 
 class Tooltip extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      place: 'top', // Direction of tooltip
+      place: 'top',               // Direction of tooltip
       show: false,
       // html: false,
       delayHide: 0,
       delayShow: 0,
       event: props.event || null,
       eventOff: props.eventOff || null,
-      currentEvent: null, // Current mouse event
-      currentTarget: null, // Current target of mouse event
+      currentEvent: null,         // Current mouse event
+      currentTarget: null,        // Current target of mouse event
       isEmptyTip: false,
       disable: false,
-      container: null, // Appends the tooltip to a specific element, default body
       tooltipElm: null,
     };
 
@@ -67,7 +65,9 @@ class Tooltip extends Component {
   bindListener() {
     this.unbindBasicListener(this.DOM);
     this.DOM.addEventListener('mouseenter', this.showTooltip);
-    this.DOM.addEventListener('mousemove', this.updateTooltip);
+    if (this.props.isFollowMouse){
+      this.DOM.addEventListener('mousemove', this.updateTooltip);
+    }
     this.DOM.addEventListener('mouseleave', this.hideTooltip);
   }
 
@@ -189,9 +189,9 @@ class Tooltip extends Component {
 
   // Calculation the position
   updatePosition() {
-    const { currentEvent, currentTarget, container, tooltipElm, place } = this.state;
-    const { offset } = this.props;
-    const result = getPosition(currentEvent, currentTarget, container, tooltipElm, place, offset);
+    const { currentEvent, currentTarget, tooltipElm, place } = this.state;
+    const { isFollowMouse, offset } = this.props;
+    const result = getPosition(currentEvent, currentTarget, null, tooltipElm, place, isFollowMouse, offset);
 
     if (result.isNewState) {
       // Switch to reverse placement
@@ -215,25 +215,16 @@ class Tooltip extends Component {
   }
 
   createTooltip() {
-    const { baseClassName, mobile } = this.props;
+    const { baseClassName, hideOnMobile } = this.props;
 
-    if (!mobile && !!('ontouchstart' in window)) {
+    if (hideOnMobile && !!('ontouchstart' in window)) {
       // check for touch device - behaviour and events for touch device
       this.setState({ disable: true });
       // ↑↑↑ don't show tooltip at mobile
     }
 
-    let container = this._document.querySelector(this.props.container);
     let tooltipElm = this._document.querySelector(`.${baseClassName}`);
-    if (!container) {
-      container = this._document.querySelector('body');
-    }
-
-    if (container && !tooltipElm) {
-      this.setState({ disable: true });
-    }
-    // ↑↑↑ React Component doesn't work with appendChild
-    // you have to include: <div class=```${baseClassName}```></div>
+    let container = this._document.querySelector('body');
 
     if (!tooltipElm) {
       tooltipElm = this._document.createElement('div');
@@ -259,34 +250,26 @@ class Tooltip extends Component {
 
 Tooltip.defaultProps = {
   baseClassName: 'tooltip',
-  container: 'body',
+  // container: 'body', --->
+  // ↑↑↑ React Component doesn't work with appendChild
+  // we should not affect ReactDOM
   dataTooltip: '',
   place: 'top',
-  resizeHide: true, // Hide the tooltip when resizing the window
-  afterShow: null, // PropTypes.func ::: Function that will be called after tooltip show
-  afterHide: null, // PropTypes.func ::: Function that will be called after tooltip hide
-  disable: false, // ::: Disable the tooltip behaviour, default is false
+  offset: {             // with cursor - top, right, bottom, left
+    // top: 5,
+    // left: 5,
+  },
+  viewport: {           // Keeps the tooltip within the bounds of this element.
+    selector: 'body',
+    padding: 0,
+  },
+  afterShow: null,      // PropTypes.func ::: Function that will be called after tooltip show
+  afterHide: null,      // PropTypes.func ::: Function that will be called after tooltip hide
   isIframe: null,
-};
-
-
-Tooltip.defaultProps = {
-  baseClassName: 'tooltip',
-  container: 'body',
-  dataTooltip: '',
-  place: 'top',
-  offset: { // with cursor
-    top: 5,
-    left: 5,
-    // bottom: 10,
-    // right: 10,
-  }, // top, right, bottom, left
-  resizeHide: true, // Hide the tooltip when resizing the window
-  afterShow: null, // PropTypes.func ::: Function that will be called after tooltip show
-  afterHide: null, // PropTypes.func ::: Function that will be called after tooltip hide
-  disable: false, // ::: Disable the tooltip behaviour, default is false
-  isIframe: null,
-  mobile: false, // Default don't support mobile
+  resizeHide: true,     // Hide the tooltip when resizing the window
+  disable: false,       // ::: Disable the tooltip behaviour, default is false
+  hideOnMobile: true,   // Default don't support mobile
+  isFollowMouse: true,  // ~ effect of React-Tooltip
 };
 
 export default Tooltip;
@@ -295,5 +278,4 @@ export default Tooltip;
 // <Tooltip
 //   dataTooltip={tooltipContent}
 //   isIframe={props.config.iframeInstance}
-//   container=".sf-widget-content"
 // >

@@ -11,8 +11,9 @@ render(
   <div>
     <div className="box">
       <Tooltip
-        dataTooltip="Themen sind geordnet nach der Ver&auml;nderung der Anzahl an Nachrichten der letzten 24 Stunden im Vergleich zur durchschnittlichen Anzahl."
+        dataTooltip="Dai Le"
         container=".box"
+
       >
         <div className="item">fsdafsfhdfghfdg</div>
       </Tooltip>
@@ -25,6 +26,8 @@ render(
       <Tooltip
         dataTooltip="Hooray! option specifies the tooltip position. This is thirth box"
         container=".box"
+        isFollowMouse={false}
+        offset={{ top: 5, left: 5}}
       >
         <div className="item">fsdafsfhdfghfdg</div>
       </Tooltip>
