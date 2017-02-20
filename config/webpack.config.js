@@ -20,7 +20,7 @@ export default {
     // accordion: ['./app/accordion/app.js', 'webpack/hot/dev-server'],
     // dropdown: ['./app/dropdown/app.js', 'webpack/hot/dev-server'],
     // 'react-collapse': ['./app/react-collapse/app.js', 'webpack/hot/dev-server'],
-    // 'react-tooltip': ['./app/react-tooltip/app.js', 'webpack/hot/dev-server'],
+    'react-tooltip': ['./app/react-tooltip/app.js', 'webpack/hot/dev-server'],
     tooltip: ['./app/tooltip/app.js', 'webpack/hot/dev-server'],
   },
 

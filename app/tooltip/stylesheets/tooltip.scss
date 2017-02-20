@@ -27,9 +27,11 @@ $tooltip-fontsize: 9px;
   transition: opacity 0.3s ease-out;
   top: -999em;
   visibility: hidden;
-  &:before,
-  &:after {
-    content: "";
+  // &:before,
+  // &:after {
+  //   content: "";
+  .#{$prefix}-arrow-outside,
+  .#{$prefix}-arrow-inside {
     width: 0;
     height: 0;
     position: absolute;
@@ -54,4 +56,3 @@ $tooltip-fontsize: 9px;
     @include mixin-placement(right, left, top, bottom, left, top);
   }
 }
-
