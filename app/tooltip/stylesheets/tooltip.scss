@@ -11,6 +11,10 @@ $tooltip-opacity: 0.9; // 1
 $tooltip-arrow-width: 4px; // 5
 $tooltip-fontsize: 9px;
 
+.#{$prefix}-wrapper {
+  position: relative;
+}
+
 .#{$prefix} {
   max-width: $tooltip-max-width;
   background-color: $tooltip-bg;
