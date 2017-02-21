@@ -90,7 +90,7 @@ function WrapperTooltip(WrappedComponent) {
     }
 
     getTargetArray() { // eslint-disable-line
-      const targetArray = document.querySelectorAll('[rel=tooltip]');
+      const targetArray = this.DOM.querySelectorAll('[rel=tooltip]');
       const length = targetArray.length;
       if (targetArray.hasOwnProperty) {
         return Array.prototype.slice.call(targetArray);
@@ -136,7 +136,7 @@ function WrapperTooltip(WrappedComponent) {
 
     onWindowResize() {
       if (!this.mount) return;
-      this.hideTooltip();
+      if (this.state.show) this.hideTooltip();
     }
 
     bindWindowEvents(resizeHide) {
@@ -160,7 +160,7 @@ function WrapperTooltip(WrappedComponent) {
         // ↑↑↑ don't show tooltip at mobile
       }
 
-      const tooltipEl = this.Document.querySelector(`.${baseClassName}`);
+      const tooltipEl = this.DOM.querySelector(`.${baseClassName}`);
       const tooltipArrowOutside = tooltipEl.querySelector(`.${baseClassName}-arrow-outside`);
       const tooltipArrowInside = tooltipEl.querySelector(`.${baseClassName}-arrow-inside`);
       const tooltipContentEl = tooltipEl.querySelector(`.${baseClassName}-content`);
@@ -178,6 +178,8 @@ function WrapperTooltip(WrappedComponent) {
       const dataOffset = Number(e.currentTarget.getAttribute('data-offset')) || offset;
       const dataResizeHide = e.currentTarget.getAttribute('data-resizehide') || resizeHide;
       const dataFollowmouse = e.currentTarget.getAttribute('data-followmouse') || isFollowMouse;
+
+      console.log(dataTip, dataPlace, dataOffset, dataResizeHide, dataFollowmouse)
 
       // data-tip="React-tooltip"
       // data-place="top"
@@ -252,6 +254,8 @@ function WrapperTooltip(WrappedComponent) {
 
       const result = getPosition(currentEvent, currentTarget, this.DOM, tooltipEl, place, isFollowMouse, offset);
 
+      console.log(result)
+
       if (result.hide) {
         const { afterHide } = this.tooltipProps;
         this.setState({
@@ -263,6 +267,7 @@ function WrapperTooltip(WrappedComponent) {
       }
 
       if (result.place && result.place !== place) {
+        console.log('comhere', place, result.place)
         tooltipEl.classList.remove('top', 'bottom', 'right', 'left');
         tooltipEl.classList.add(result.place);
       }

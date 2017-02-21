@@ -52,7 +52,7 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
   // top ↓↓↓
   if (place === 'top') {
     const xCursor = mouseX - (widthTooltipEl / 2);
-    const yCursor = mouseY - (heightTooltipEl + offset);
+    const yCursor = mouseY - (heightTooltipEl + 10 + offset);
 
     const rightEl = xCursor + widthTooltipEl;
     // const bottomEl = yCursor + heightTooltipEl;
@@ -60,8 +60,8 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
     let xCursorFinal = xCursor;
     let yCursorFinal = yCursor;
     let positionArrowLeft = widthTooltipEl / 2;
-    let currentPlace = null;
-    let currentHide = false;
+    let currentPlace = null; // tre ket qua ko dung
+    let currentHide = false; // tra ket qua ko dung
 
     if (xCursor < leftContainerEl) { // to left
       const deviate = leftContainerEl - xCursor;
@@ -76,11 +76,11 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
       // not enough width to show tooltip
     }
 
-    if (yCursor < topContainerEl) { // to top
-      yCursorFinal = mouseY + 20 + offset;
+    if (yCursor < topContainerEl) { // to bottom
+      yCursorFinal = mouseY + 30 + offset;
       currentPlace = 'bottom';
       const hSpaceBetweenElvsContainer = heightContainerEl - mouseY - heightArrow;
-      console.log('=================== vượt top', hSpaceBetweenElvsContainer);
+      // console.log('=================== vượt top', hSpaceBetweenElvsContainer);
       if (hSpaceBetweenElvsContainer < 0) currentHide = true;  // not enough height to show tooltip
     }
 
