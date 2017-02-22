@@ -15,6 +15,9 @@
  * - `position` {OBject} {left: {Number}, top: {Number}}
  * - `positionArrow` {OBject} {left: {Number}, top: {Number}}
  */
+/*
+ * if (!isFollowMouse) we don't care container
+ */
 
 // export default function (e, target, node, place, effect, offset) {
 export default function(event, target, container, tooltipEl, place, isFollowMouse, offset) {
@@ -32,7 +35,7 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
   const maxLeftContainer = widthContainerEl + leftContainerEl;
   const bottomContainerEl = topContainerEl + heightContainerEl;
 
-  // top ↓↓↓
+  // ↓↓↓ top
   if (place === 'top') {
     if (!isFollowMouse) {
       const boundingClientRectTarget = target.getBoundingClientRect();
@@ -96,16 +99,18 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
     };
   }
 
+  // ↓↓↓ bottom
   if (place === 'bottom') {
     if (!isFollowMouse) {
       const boundingClientRectTarget = target.getBoundingClientRect();
       const targetTop = boundingClientRectTarget.top;
       const targetLeft = boundingClientRectTarget.left;
       const targetWidth = target.clientWidth;
+      const targetHeight = target.clientHeight;
       return ({
         position: {
           left: targetLeft + (targetWidth / 2) - (widthTooltipEl / 2),
-          top: targetTop + heightTooltipEl + 10 + offset,
+          top: targetTop + targetHeight + 10 + offset,
         },
       });
     }
@@ -158,5 +163,41 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
     };
   }
 
+  // ↓↓↓ right
+  if (place === 'right') {
+    if (!isFollowMouse) {
+      const boundingClientRectTarget = target.getBoundingClientRect();
+      const targetTop = boundingClientRectTarget.top;
+      const targetLeft = boundingClientRectTarget.left;
+      const targetWidth = target.clientWidth;
+      const targetHeight = target.clientHeight;
+      return ({
+        position: {
+          left: targetLeft + targetWidth + 10 + offset,
+          top: targetTop + (targetHeight / 2) - (heightTooltipEl / 2),
+        },
+      });
+    }
+  }
+
+  // ↓↓↓ left
+  if (place === 'left') {
+    if (!isFollowMouse) {
+      const boundingClientRectTarget = target.getBoundingClientRect();
+      const targetTop = boundingClientRectTarget.top;
+      const targetLeft = boundingClientRectTarget.left;
+      const targetHeight = target.clientHeight;
+      return ({
+        position: {
+          left: targetLeft - widthTooltipEl - 10 - offset,
+          top: targetTop + (targetHeight / 2) - (heightTooltipEl / 2),
+        },
+      });
+    }
+  }
+
+
+
   // default - NOOOO
+  // test trường hợp nhập : place=null
 }

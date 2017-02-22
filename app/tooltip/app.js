@@ -21,6 +21,7 @@ render(
         <p>This is the second paragraph of text.</p>
         <p>A link: <a href="http://www.simplehtmlguide.com"> html guide </a></p>`,
         place: 'top',
+        isFollowMouse: false,
       }}
       name="DaiLe"
     >
@@ -44,7 +45,9 @@ render(
         <p>This is the second paragraph of text.</p>
         <p>A link: <a href="http://www.simplehtmlguide.com"> html guide </a></p>`,
         place: 'top',
+        isFollowMouse: false,
       }}
+      overflowContainer={true}
       name="DaiLe"
     >
       <div
@@ -103,6 +106,7 @@ render(
         <p>This is the second paragraph of text.</p>
         <p>A link: <a href="http://www.simplehtmlguide.com"> html guide </a></p>`,
         place: 'bottom',
+        isFollowMouse: false,
       }}
       name="DaiLe"
     >
@@ -117,6 +121,70 @@ render(
          <p
           rel="tooltip" data-offset="10"
         >
+          日蓮上人より長谷山本土寺と寺号を授かったのが始まりとさ れており、池上の長栄山本門寺、鎌倉の長興山妙本寺とともに朗門の三長三本の本山と称される名刹の名刹。1万株のあじさいと5千株の花菖蒲が有名で、別名「あじさい寺」とも呼ばれている。所々にソメイヨシノがあるほか、期間は短いがシダレザクラも鑑賞できる花見スポット。桜の下には百余の雪柳が咲く。
+        </p>
+      </div>
+    </DemoB>
+
+    <h1>Right</h1>
+
+    <DemoB
+      key="r01"
+      tooltip={{
+        dataTooltip: `<p>second content</p>
+        <h1>My Heading</h1>
+        <p>This is the first paragraph of text.</p>
+        <p>This is the second paragraph of text.</p>
+        <p>A link: <a href="http://www.simplehtmlguide.com"> html guide </a></p>`,
+        place: 'right',
+        isFollowMouse: false,
+      }}
+
+      name="DaiLe"
+    >
+      <div
+        className="item"
+        rel="tooltip"
+        data-tip="DaiLe"
+        data-place="right" style={{ width: 500 }}
+      >fsdafsfhdfghfdg</div>
+      <div>
+        <p rel="tooltip" data-tip="ngốc nghếch wa đi">this is tooltip</p>
+         <p rel="tooltip" data-offset="10"
+         style={ {width: 100} }
+         >
+          日蓮上人より長谷山本土寺と寺号を授かったのが始まりとさ れており、池上の長栄山本門寺、鎌倉の長興山妙本寺とともに朗門の三長三本の本山と称される名刹の名刹。1万株のあじさいと5千株の花菖蒲が有名で、別名「あじさい寺」とも呼ばれている。所々にソメイヨシノがあるほか、期間は短いがシダレザクラも鑑賞できる花見スポット。桜の下には百余の雪柳が咲く。
+        </p>
+      </div>
+    </DemoB>
+
+    <h1>left</h1>
+
+    <DemoB
+      key="l01"
+      tooltip={{
+        dataTooltip: `<p>second content</p>
+        <h1>My Heading</h1>
+        <p>This is the first paragraph of text.</p>
+        <p>This is the second paragraph of text.</p>
+        <p>A link: <a href="http://www.simplehtmlguide.com"> html guide </a></p>`,
+        place: 'left',
+        isFollowMouse: false,
+      }}
+
+      name="DaiLe"
+    >
+      <div
+        className="item"
+        rel="tooltip"
+        data-tip="DaiLe"
+        data-place="left" style={{ width: 500 }}
+      >fsdafsfhdfghfdg</div>
+      <div>
+        <p rel="tooltip" data-tip="ngốc nghếch wa đi">this is tooltip</p>
+         <p rel="tooltip" data-offset="10"
+         style={{ width: 100, marginLeft: 250 }}
+         >
           日蓮上人より長谷山本土寺と寺号を授かったのが始まりとさ れており、池上の長栄山本門寺、鎌倉の長興山妙本寺とともに朗門の三長三本の本山と称される名刹の名刹。1万株のあじさいと5千株の花菖蒲が有名で、別名「あじさい寺」とも呼ばれている。所々にソメイヨシノがあるほか、期間は短いがシダレザクラも鑑賞できる花見スポット。桜の下には百余の雪柳が咲く。
         </p>
       </div>

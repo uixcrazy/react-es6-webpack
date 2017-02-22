@@ -1,15 +1,15 @@
 @import "mixins";
 $prefix: "tooltip";
-$tooltip-max-width: 120px;
+// $tooltip-max-width: 120px;
 $zindex-tooltip: 1000;
-$tooltip-max-width: 120px;
+$tooltip-max-width: 320px; //120
 $tooltip-color: #333;
 $tooltip-bg: #f7f7f7;
 $tooltip-border-color: #ccc;
 $tooltip-arrow-color: #0ff;
 $tooltip-opacity: 0.9; // 1
 $tooltip-arrow-width: 4px; // 5
-$tooltip-fontsize: 9px;
+$tooltip-fontsize: 15px; // 9
 
 .#{$prefix}-wrapper {
   position: relative;
