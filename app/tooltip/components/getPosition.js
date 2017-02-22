@@ -22,6 +22,41 @@
 // export default function (e, target, node, place, effect, offset) {
 export default function(event, target, container, tooltipEl, place, isFollowMouse, offset) {
   // console.log(event, target, container, tooltipEl, place, isFollowMouse, offset);
+
+  const widthTooltipEl = tooltipEl.offsetWidth;
+  const heightTooltipEl = tooltipEl.offsetHeight;
+
+  if (!isFollowMouse) {
+    const boundingClientRectTarget = target.getBoundingClientRect();
+    const targetTop = boundingClientRectTarget.top;
+    const targetLeft = boundingClientRectTarget.left;
+    const targetWidth = target.clientWidth;
+    const targetHeight = target.clientHeight;
+    let left = targetLeft + (targetWidth / 2) - (widthTooltipEl / 2);
+    let top = targetTop - heightTooltipEl - 10 - offset;
+    // if (place === 'top') {
+    // }
+    if (place === 'bottom') {
+      top = targetTop + targetHeight + 10 + offset;
+    }
+    if (place === 'right') {
+      left = targetLeft + targetWidth + 10 + offset;
+      top = targetTop + (targetHeight / 2) - (heightTooltipEl / 2);
+    }
+
+    if (place === 'left') {
+      left = targetLeft - widthTooltipEl - 10 - offset;
+      top = targetTop + (targetHeight / 2) - (heightTooltipEl / 2);
+    }
+
+    return ({
+      position: {
+        left,
+        top,
+      },
+    });
+  }
+
   const mouseX = event.clientX;
   const mouseY = event.clientY;
 
@@ -30,25 +65,12 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
   const leftContainerEl = boundingClientRectContainer.left;
   const widthContainerEl = container.offsetWidth; // border
   const heightContainerEl = container.offsetHeight;
-  const widthTooltipEl = tooltipEl.offsetWidth;
-  const heightTooltipEl = tooltipEl.offsetHeight;
+
   const maxLeftContainer = widthContainerEl + leftContainerEl;
   const bottomContainerEl = topContainerEl + heightContainerEl;
 
   // ↓↓↓ top
   if (place === 'top') {
-    if (!isFollowMouse) {
-      const boundingClientRectTarget = target.getBoundingClientRect();
-      const targetTop = boundingClientRectTarget.top;
-      const targetLeft = boundingClientRectTarget.left;
-      const targetWidth = target.clientWidth;
-      return ({
-        position: {
-          left: targetLeft + (targetWidth / 2) - (widthTooltipEl / 2),
-          top: targetTop - heightTooltipEl - 10 - offset,
-        },
-      });
-    }
     const xCursor = mouseX - (widthTooltipEl / 2);
     const yCursor = mouseY - (heightTooltipEl + 10 + offset);
     const rightEl = xCursor + widthTooltipEl;
@@ -101,19 +123,6 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
 
   // ↓↓↓ bottom
   if (place === 'bottom') {
-    if (!isFollowMouse) {
-      const boundingClientRectTarget = target.getBoundingClientRect();
-      const targetTop = boundingClientRectTarget.top;
-      const targetLeft = boundingClientRectTarget.left;
-      const targetWidth = target.clientWidth;
-      const targetHeight = target.clientHeight;
-      return ({
-        position: {
-          left: targetLeft + (targetWidth / 2) - (widthTooltipEl / 2),
-          top: targetTop + targetHeight + 10 + offset,
-        },
-      });
-    }
     const xCursor = mouseX - (widthTooltipEl / 2);
     const yCursor = mouseY + 30 + offset;
     const rightEl = xCursor + widthTooltipEl;
@@ -165,35 +174,12 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
 
   // ↓↓↓ right
   if (place === 'right') {
-    if (!isFollowMouse) {
-      const boundingClientRectTarget = target.getBoundingClientRect();
-      const targetTop = boundingClientRectTarget.top;
-      const targetLeft = boundingClientRectTarget.left;
-      const targetWidth = target.clientWidth;
-      const targetHeight = target.clientHeight;
-      return ({
-        position: {
-          left: targetLeft + targetWidth + 10 + offset,
-          top: targetTop + (targetHeight / 2) - (heightTooltipEl / 2),
-        },
-      });
-    }
+
   }
 
   // ↓↓↓ left
   if (place === 'left') {
-    if (!isFollowMouse) {
-      const boundingClientRectTarget = target.getBoundingClientRect();
-      const targetTop = boundingClientRectTarget.top;
-      const targetLeft = boundingClientRectTarget.left;
-      const targetHeight = target.clientHeight;
-      return ({
-        position: {
-          left: targetLeft - widthTooltipEl - 10 - offset,
-          top: targetTop + (targetHeight / 2) - (heightTooltipEl / 2),
-        },
-      });
-    }
+
   }
 
 
