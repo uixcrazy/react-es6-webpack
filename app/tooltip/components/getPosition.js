@@ -19,35 +19,18 @@
 // export default function (e, target, node, place, effect, offset) {
 export default function(event, target, container, tooltipEl, place, isFollowMouse, offset) {
   // console.log(event, target, container, tooltipEl, place, isFollowMouse, offset);
-
-  if (!isFollowMouse) {
-    console.log('status');
-    const targetTop = target.top;
-    const targetLeft = target.left;
-    const targetWidth = target.clientWidth;
-    const targetHeight = target.clientHeight;
-    return ({
-      position: {
-        left: targetLeft + (targetWidth / 2),
-        top: targetTop + (targetHeight / 2),
-      },
-    });
-  }
-
   const mouseX = event.clientX;
   const mouseY = event.clientY;
 
-  const heightArrow = 4;
-
-  const topContainerEl = container.offsetTop;  // border + padding
-  const leftContainerEl = container.offsetLeft;
-  const topContainerElBorder = container.clientTop; // border
-  const leftContainerElBorder = container.clientLeft;
+  const boundingClientRectContainer = container.getBoundingClientRect(); // for browser's window
+  const topContainerEl = boundingClientRectContainer.top;  // border + padding
+  const leftContainerEl = boundingClientRectContainer.left;
   const widthContainerEl = container.offsetWidth; // border
   const heightContainerEl = container.offsetHeight;
   const widthTooltipEl = tooltipEl.offsetWidth;
   const heightTooltipEl = tooltipEl.offsetHeight;
   const maxLeftContainer = widthContainerEl + leftContainerEl;
+  const bottomContainerEl = topContainerEl + heightContainerEl;
 
   // top ↓↓↓
   if (place === 'top') {
@@ -56,12 +39,24 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
 
     const rightEl = xCursor + widthTooltipEl;
     // const bottomEl = yCursor + heightTooltipEl;
+    if (!isFollowMouse) {
+      const boundingClientRectTarget = target.getBoundingClientRect();
+      const targetTop = boundingClientRectTarget.top;
+      const targetLeft = boundingClientRectTarget.left;
+      const targetWidth = target.clientWidth;
+      return ({
+        position: {
+          left: targetLeft + (targetWidth / 2) - (widthTooltipEl / 2),
+          top: targetTop - heightTooltipEl - 10 - offset,
+        },
+      });
+    }
 
     let xCursorFinal = xCursor;
     let yCursorFinal = yCursor;
     let positionArrowLeft = widthTooltipEl / 2;
-    let currentPlace = null; // tre ket qua ko dung
-    let currentHide = false; // tra ket qua ko dung
+    let currentPlace = null;
+    let currentHide = false;
 
     if (xCursor < leftContainerEl) { // to left
       const deviate = leftContainerEl - xCursor;
@@ -79,15 +74,9 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
     if (yCursor < topContainerEl) { // to bottom
       yCursorFinal = mouseY + 30 + offset;
       currentPlace = 'bottom';
-      const hSpaceBetweenElvsContainer = heightContainerEl - mouseY - heightArrow;
-      // console.log('=================== vượt top', hSpaceBetweenElvsContainer);
-      if (hSpaceBetweenElvsContainer < 0) currentHide = true;  // not enough height to show tooltip
+      const bottomTooltipEl = yCursorFinal + heightTooltipEl;
+      if (bottomContainerEl - bottomTooltipEl < 0) currentHide = true;  // not enough height to show tooltip
     }
-
-    // if (bottomEl > heightContainerEl + topContainerEl) {
-    //   console.log('=================== vượt bottom');
-    //   return;
-    // }
 
     return {
       place: currentPlace,
@@ -103,6 +92,10 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
   }
 
   if (place === 'bottom') {
+    // if (bottomEl > heightContainerEl + topContainerEl) {
+    //   console.log('=================== vượt bottom');
+    //   return;
+    // }
 
   }
 

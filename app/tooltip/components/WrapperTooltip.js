@@ -28,13 +28,6 @@ function WrapperTooltip(WrappedComponent) {
     constructor(props) {
       super(props);
       this.tooltipProps = Object.assign({}, tooltipDefaultProps, this.props.tooltip);
-
-      // data-tip="React-tooltip"
-      // data-place="top"
-      // data-offset="10"
-      // data-resizehide="true"
-      // data-followmouse="true"
-
       this.state = {
         dataTooltip: this.tooltipProps.dataTooltip,
         place: this.tooltipProps.place, // Direction of tooltip
@@ -53,11 +46,6 @@ function WrapperTooltip(WrappedComponent) {
         tooltipArrowInside: null,
         tooltipContentEl: null,
       };
-
-        // delayHide: 0,
-        // delayShow: 0,
-        // event: props.event || null,
-        // eventOff: props.eventOff || null,
 
       this.bind([
         'showTooltip',
@@ -172,27 +160,23 @@ function WrapperTooltip(WrappedComponent) {
     }
 
     showTooltip(e) {
-      const { dataTooltip, place, offset, resizeHide, isFollowMouse } = this.tooltipProps;
+      const { dataTooltip, place, offset } = this.tooltipProps;
+      let { resizeHide, isFollowMouse } = this.tooltipProps;
       const dataTip = e.currentTarget.getAttribute('data-tip') || dataTooltip;
       const dataPlace = e.currentTarget.getAttribute('data-place') || place || 'top';
       const dataOffset = Number(e.currentTarget.getAttribute('data-offset')) || offset;
-      const dataResizeHide = e.currentTarget.getAttribute('data-resizehide') || resizeHide;
-      const dataFollowmouse = e.currentTarget.getAttribute('data-followmouse') || isFollowMouse;
+      const dataResizeHide = e.currentTarget.hasAttribute('data-resize-window');
+      const dataFollowmouse = e.currentTarget.hasAttribute('data-static');
 
-      console.log(dataTip, dataPlace, dataOffset, dataResizeHide, dataFollowmouse)
-
-      // data-tip="React-tooltip"
-      // data-place="top"
-      // data-offset="10"
-      // data-resizehide="true"
-      // data-followmouse="true"
+      if (dataResizeHide) resizeHide = false;
+      if (dataFollowmouse) isFollowMouse = false;
 
       this.setState({
         dataTooltip: dataTip,
         place: dataPlace,
         offset: dataOffset,
-        resizeHide: dataResizeHide,
-        isFollowMouse: dataFollowmouse,
+        resizeHide,
+        isFollowMouse,
 
         isEmptyTip: !dataTip,
       });
@@ -200,11 +184,13 @@ function WrapperTooltip(WrappedComponent) {
     }
 
     updateTooltip(e) {
-      const { show, isEmptyTip, disable, tooltipEl } = this.state;
+      const { show, isEmptyTip, disable, tooltipEl, isFollowMouse } = this.state;
       const { afterShow } = this.tooltipProps;
       const eventTarget = e.currentTarget;
 
-      if (isEmptyTip || disable) return; // if the tooltip is empty, disable the tooltip
+      // if the tooltip is empty, disable the tooltip
+      // and not follow mouse → not update
+      if (isEmptyTip || disable || (show && !isFollowMouse)) return;
       tooltipEl.classList.add('show');
 
       tooltipEl.classList.remove('top', 'bottom', 'right', 'left');
@@ -249,25 +235,19 @@ function WrapperTooltip(WrappedComponent) {
         place,
         offset,
         isFollowMouse,
-        show,
       } = this.state;
 
       const result = getPosition(currentEvent, currentTarget, this.DOM, tooltipEl, place, isFollowMouse, offset);
 
-      console.log(result)
+      console.log(result);
 
       if (result.hide) {
-        const { afterHide } = this.tooltipProps;
-        this.setState({
-          show: false,
-        }, () => {
-          if (show && afterHide) afterHide();
-        });
+        console.log(result.hide);
+        this.hideTooltip(currentEvent);
         return;
       }
 
       if (result.place && result.place !== place) {
-        console.log('comhere', place, result.place)
         tooltipEl.classList.remove('top', 'bottom', 'right', 'left');
         tooltipEl.classList.add(result.place);
       }
@@ -306,3 +286,13 @@ export default WrapperTooltip;
 
 // note
 // phải test kỹ có update element hay ko
+
+/*
+ * data-param for tooltipItem
+ *----------------------------
+ * data-tip="content tooltip"
+ * data-place="top"
+ * data-offset="10"
+ * data-resize-window
+ * data-static
+*/

@@ -9,9 +9,17 @@ body {
 }
 
 .Example {
-  padding: 30px;
+  // padding: 30px;
+  margin-top: 500px;
   background: #ccc;
   border: 10px solid #f0f;
+  cursor: pointer;
+}
+.Example222 {
+  //
+  padding: 5px;
+  background: #ccc;
+  border: 10px solid #00f;
   cursor: pointer;
 }
 
