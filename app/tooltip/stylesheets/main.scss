@@ -7,10 +7,13 @@ body {
   padding: 0;
   // box-sizing: border-box;
 }
-
+h1 {
+  margin-top: 20px;
+  color: #f00;
+}
 .Example {
   // padding: 30px;
-  margin-top: 500px;
+  // margin-top: 500px;
   background: #ccc;
   border: 10px solid #f0f;
   cursor: pointer;

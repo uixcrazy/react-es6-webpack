@@ -34,11 +34,6 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
 
   // top ↓↓↓
   if (place === 'top') {
-    const xCursor = mouseX - (widthTooltipEl / 2);
-    const yCursor = mouseY - (heightTooltipEl + 10 + offset);
-
-    const rightEl = xCursor + widthTooltipEl;
-    // const bottomEl = yCursor + heightTooltipEl;
     if (!isFollowMouse) {
       const boundingClientRectTarget = target.getBoundingClientRect();
       const targetTop = boundingClientRectTarget.top;
@@ -51,6 +46,9 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
         },
       });
     }
+    const xCursor = mouseX - (widthTooltipEl / 2);
+    const yCursor = mouseY - (heightTooltipEl + 10 + offset);
+    const rightEl = xCursor + widthTooltipEl;
 
     let xCursorFinal = xCursor;
     let yCursorFinal = yCursor;
@@ -58,24 +56,31 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
     let currentPlace = null;
     let currentHide = false;
 
+    // ↓↓↓ not enough width to show tooltip
+    if (widthContainerEl < widthTooltipEl) return { hide: true };
+    // ↑↑↑
+
     if (xCursor < leftContainerEl) { // to left
       const deviate = leftContainerEl - xCursor;
       xCursorFinal = leftContainerEl;
       positionArrowLeft = (widthTooltipEl / 2) - deviate;
+      if (positionArrowLeft < 10) positionArrowLeft = 10;
     }
 
     if (rightEl > maxLeftContainer) { // to right
       xCursorFinal = maxLeftContainer - widthTooltipEl;
-      const deviate = xCursor - xCursorFinal;
+      let deviate = xCursor - xCursorFinal;
+      const deviateMax = (widthTooltipEl / 2) - 10;
+      if (deviate > deviateMax) deviate = deviateMax;
       positionArrowLeft = (widthTooltipEl / 2) + deviate;
-      // not enough width to show tooltip
     }
 
     if (yCursor < topContainerEl) { // to bottom
       yCursorFinal = mouseY + 30 + offset;
       currentPlace = 'bottom';
       const bottomTooltipEl = yCursorFinal + heightTooltipEl;
-      if (bottomContainerEl - bottomTooltipEl < 0) currentHide = true;  // not enough height to show tooltip
+      // ↓↓↓ not enough height to show tooltip
+      if (bottomContainerEl - bottomTooltipEl < 0) currentHide = true;
     }
 
     return {
@@ -92,21 +97,66 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
   }
 
   if (place === 'bottom') {
-    // if (bottomEl > heightContainerEl + topContainerEl) {
-    //   console.log('=================== vượt bottom');
-    //   return;
-    // }
+    if (!isFollowMouse) {
+      const boundingClientRectTarget = target.getBoundingClientRect();
+      const targetTop = boundingClientRectTarget.top;
+      const targetLeft = boundingClientRectTarget.left;
+      const targetWidth = target.clientWidth;
+      return ({
+        position: {
+          left: targetLeft + (targetWidth / 2) - (widthTooltipEl / 2),
+          top: targetTop + heightTooltipEl + 10 + offset,
+        },
+      });
+    }
+    const xCursor = mouseX - (widthTooltipEl / 2);
+    const yCursor = mouseY + 30 + offset;
+    const rightEl = xCursor + widthTooltipEl;
+    const bottomEl = yCursor + heightTooltipEl;
 
+    let xCursorFinal = xCursor;
+    let yCursorFinal = yCursor;
+    let positionArrowLeft = widthTooltipEl / 2;
+    let currentPlace = null;
+    let currentHide = false;
+
+    // ↓↓↓ not enough width to show tooltip
+    if (widthContainerEl < widthTooltipEl) return { hide: true };
+    // ↑↑↑
+
+    if (xCursor < leftContainerEl) { // to left
+      const deviate = leftContainerEl - xCursor;
+      xCursorFinal = leftContainerEl;
+      positionArrowLeft = (widthTooltipEl / 2) - deviate;
+      if (positionArrowLeft < 10) positionArrowLeft = 10;
+    }
+
+    if (rightEl > maxLeftContainer) { // to right
+      xCursorFinal = maxLeftContainer - widthTooltipEl;
+      let deviate = xCursor - xCursorFinal;
+      const deviateMax = (widthTooltipEl / 2) - 10;
+      if (deviate > deviateMax) deviate = deviateMax;
+      positionArrowLeft = (widthTooltipEl / 2) + deviate;
+    }
+
+    if (bottomEl > heightContainerEl + topContainerEl) { // to top
+      yCursorFinal = mouseY - (heightTooltipEl + 10 + offset);
+      currentPlace = 'top';
+      if (yCursorFinal < topContainerEl) currentHide = true;
+    }
+
+    return {
+      place: currentPlace,
+      hide: currentHide,
+      position: {
+        left: xCursorFinal,
+        top: yCursorFinal,
+      },
+      positionArrow: {
+        left: positionArrowLeft,
+      },
+    };
   }
 
-  // default
-  // return {
-  //   position: {
-  //     left: mouseX,
-  //     top: mouseY,
-  //   },
-  //   positionArrow: {
-  //     left: widthTooltipEl / 2,
-  //   },
-  // };
+  // default - NOOOO
 }

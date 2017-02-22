@@ -10,12 +10,13 @@ import './stylesheets/main.scss';
 //  data-offset="10"
 render(
   <div>
+  <h1>Top</h1>
 
   <DemoB
       key="CCC"
       tooltip={{
         dataTooltip: `<p>second content</p>
-        <h1>My Heading</h1>
+        <h2>My Heading</h2>
         <p>This is the first paragraph of text.</p>
         <p>This is the second paragraph of text.</p>
         <p>A link: <a href="http://www.simplehtmlguide.com"> html guide </a></p>`,
@@ -51,20 +52,17 @@ render(
         rel="tooltip"
         data-tip="DaiLe"
         data-place="top"
-        data-static
       >fsdafsfhdfghfdg</div>
       <div>
         <p
-          rel="tooltip" data-static
+          rel="tooltip"
         >
           日蓮上人より長谷山本土寺と寺号を授かったのが始まりとさ れており、池上の長栄山本門寺、鎌倉の長興山妙本寺とともに朗門の三長三本の本山と称される名刹の名刹。1万株のあじさいと5千株の花菖蒲が有名で、別名「あじさい寺」とも呼ばれている。所々にソメイヨシノがあるほか、期間は短いがシダレザクラも鑑賞できる花見スポット。桜の下には百余の雪柳が咲く。
         </p>
         <p>second content</p>
-        <h1>My Heading</h1>
+        <h2>My Heading</h2>
       </div>
     </DemoB>
-
-
 
     <DemoD
       key="BBB"
@@ -87,12 +85,42 @@ render(
           日蓮上人より長谷山本土寺と寺号を授かったのが始まりとさ れており、池上の長栄山本門寺、鎌倉の長興山妙本寺とともに朗門の三長三本の本山と称される名刹の名刹。1万株のあじさいと5千株の花菖蒲が有名で、別名「あじさい寺」とも呼ばれている。所々にソメイヨシノがあるほか、期間は短いがシダレザクラも鑑賞できる花見スポット。桜の下には百余の雪柳が咲く。
         </p>
         <p>second content</p>
-        <h1>My Heading</h1>
+        <h2>My Heading</h2>
         <p>This is the first paragraph of text.</p>
         <p>This is the second paragraph of text.</p>
         <p>A link: <a href="http://www.simplehtmlguide.com"> html guide </a></p>
       </div>
     </DemoD>
+
+    <h1>Bottom</h1>
+
+    <DemoB
+      key="b01"
+      tooltip={{
+        dataTooltip: `<p>second content</p>
+        <h1>My Heading</h1>
+        <p>This is the first paragraph of text.</p>
+        <p>This is the second paragraph of text.</p>
+        <p>A link: <a href="http://www.simplehtmlguide.com"> html guide </a></p>`,
+        place: 'bottom',
+      }}
+      name="DaiLe"
+    >
+      <div
+        className="item"
+        rel="tooltip"
+        data-tip="DaiLe"
+        data-place="bottom"
+      >fsdafsfhdfghfdg</div>
+      <div>
+        <p rel="tooltip" data-tip="ngốc nghếch wa đi">this is tooltip</p>
+         <p
+          rel="tooltip" data-offset="10"
+        >
+          日蓮上人より長谷山本土寺と寺号を授かったのが始まりとさ れており、池上の長栄山本門寺、鎌倉の長興山妙本寺とともに朗門の三長三本の本山と称される名刹の名刹。1万株のあじさいと5千株の花菖蒲が有名で、別名「あじさい寺」とも呼ばれている。所々にソメイヨシノがあるほか、期間は短いがシダレザクラも鑑賞できる花見スポット。桜の下には百余の雪柳が咲く。
+        </p>
+      </div>
+    </DemoB>
 
 
 

@@ -11,6 +11,7 @@ import getPosition from './getPosition';
 const tooltipDefaultProps = { // insteed Tooltip.defaultProps
   baseClassName: 'tooltip',
   // container:  ← thisDom ::: Keeps the tooltip within the bounds of this element.
+  overflowContainer: false, // allow overflow container
   dataTooltip: '',
   place: null,          // PropTypes.string ::: top, right, bottom, left
   offset: 0,            // PropTypes.number ::: with cursor
@@ -236,13 +237,13 @@ function WrapperTooltip(WrappedComponent) {
         offset,
         isFollowMouse,
       } = this.state;
+      const { overflowContainer } = this.props;
 
       const result = getPosition(currentEvent, currentTarget, this.DOM, tooltipEl, place, isFollowMouse, offset);
 
-      console.log(result);
+      // console.log(result);
 
-      if (result.hide) {
-        console.log(result.hide);
+      if (result.hide && !overflowContainer) {
         this.hideTooltip(currentEvent);
         return;
       }
@@ -283,9 +284,6 @@ function WrapperTooltip(WrappedComponent) {
 }
 
 export default WrapperTooltip;
-
-// note
-// phải test kỹ có update element hay ko
 
 /*
  * data-param for tooltipItem

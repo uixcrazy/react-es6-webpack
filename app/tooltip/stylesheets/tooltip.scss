@@ -13,6 +13,7 @@ $tooltip-fontsize: 9px;
 
 .#{$prefix}-wrapper {
   position: relative;
+  display: inline-block;
 }
 
 .#{$prefix} {
