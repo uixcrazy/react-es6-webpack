@@ -259,6 +259,8 @@ function WrapperTooltip(WrappedComponent) {
       if (result.positionArrow) {
         tooltipArrowOutside.style.left = `${result.positionArrow.left}px`;
         tooltipArrowInside.style.left = `${result.positionArrow.left}px`;
+        tooltipArrowOutside.style.top = `${result.positionArrow.top}px`;
+        tooltipArrowInside.style.top = `${result.positionArrow.top}px`;
       }
     }
 
