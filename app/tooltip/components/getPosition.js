@@ -20,7 +20,7 @@
  */
 
 // export default function (e, target, node, place, effect, offset) {
-export default function(event, target, container, tooltipEl, place, isFollowMouse, offset) {
+export default function (event, target, container, tooltipEl, place, isFollowMouse, offset) {
   // console.log(event, target, container, tooltipEl, place, isFollowMouse, offset);
 
   const widthTooltipEl = tooltipEl.offsetWidth;
@@ -32,7 +32,7 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
     const targetLeft = boundingClientRectTarget.left;
     const targetWidth = target.clientWidth;
     const targetHeight = target.clientHeight;
-    let left = targetLeft + (targetWidth / 2) - (widthTooltipEl / 2);
+    let left = (targetLeft + (targetWidth / 2)) - (widthTooltipEl / 2);
     let top = targetTop - heightTooltipEl - 10 - offset;
     // if (place === 'top') {
     // }
@@ -41,12 +41,12 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
     }
     if (place === 'right') {
       left = targetLeft + targetWidth + 10 + offset;
-      top = targetTop + (targetHeight / 2) - (heightTooltipEl / 2);
+      top = (targetTop + (targetHeight / 2)) - (heightTooltipEl / 2);
     }
 
     if (place === 'left') {
       left = targetLeft - widthTooltipEl - 10 - offset;
-      top = targetTop + (targetHeight / 2) - (heightTooltipEl / 2);
+      top = (targetTop + (targetHeight / 2)) - (heightTooltipEl / 2);
     }
 
     return ({
@@ -181,9 +181,7 @@ export default function(event, target, container, tooltipEl, place, isFollowMous
   if (place === 'left') {
 
   }
-
-
-
+  return;
   // default - NOOOO
   // test trường hợp nhập : place=null
 }

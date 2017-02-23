@@ -203,12 +203,12 @@ function WrapperTooltip(WrappedComponent) {
         show: true,
       }, () => {
         this.updatePosition();
-        if (!show && afterShow) afterShow();
+        if (afterShow) afterShow();
       });
     }
 
     hideTooltip(e) {
-      const { show, isEmptyTip, disable, tooltipEl } = this.state;
+      const { isEmptyTip, disable, tooltipEl } = this.state;
       const { afterHide } = this.tooltipProps;
       if (!this.mount) return;
       if (isEmptyTip || disable) return; // if the tooltip is empty, disable the tooltip
@@ -222,7 +222,7 @@ function WrapperTooltip(WrappedComponent) {
         show: false,
       }, () => {
         tooltipEl.classList.remove('show');
-        if (show && afterHide) afterHide();
+        if (afterHide) afterHide();
       });
     }
 
