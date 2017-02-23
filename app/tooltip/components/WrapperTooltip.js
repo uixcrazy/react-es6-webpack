@@ -11,17 +11,17 @@ import getPosition from './getPosition';
 const tooltipDefaultProps = { // insteed Tooltip.defaultProps
   baseClassName: 'tooltip',
   // container:  ← thisDom ::: Keeps the tooltip within the bounds of this element.
-  overflowContainer: false, // allow overflow container
+  overflowContainer: false,   // allow overflow container
   dataTooltip: '',
-  place: null,          // PropTypes.string ::: top, right, bottom, left
-  offset: 0,            // PropTypes.number ::: with cursor
-  afterShow: null,      // PropTypes.func ::: Function that will be called after tooltip show
-  afterHide: null,      // PropTypes.func ::: Function that will be called after tooltip hide
+  place: null,                // PropTypes.string ::: top, right, bottom, left
+  offset: 0,                  // PropTypes.number ::: with cursor
+  afterShow: null,            // PropTypes.func ::: Function that will be called after tooltip show
+  afterHide: null,            // PropTypes.func ::: Function that will be called after tooltip hide
   iframe: null,
-  resizeHide: true,     // PropTypes.bool ::: Hide the tooltip when resizing the window
-  disable: false,       // PropTypes.bool ::: Disable the tooltip behaviour, default is false
-  hideOnMobile: true,   // Default don't support mobile
-  isFollowMouse: true,  // ~ effect of React-Tooltip
+  resizeHide: true,           // PropTypes.bool ::: Hide the tooltip when resizing the window
+  disable: false,             // PropTypes.bool ::: Disable the tooltip behaviour, default is false
+  hideOnMobile: true,         // Default don't support mobile
+  isFollowMouse: true,        // ~ effect of React-Tooltip
 };
 
 function WrapperTooltip(WrappedComponent) {
@@ -37,15 +37,11 @@ function WrapperTooltip(WrappedComponent) {
         isFollowMouse: this.tooltipProps.isFollowMouse,
 
         show: false,
-        currentEvent: null, // Current mouse event
+        currentEvent: null,  // Current mouse event
         currentTarget: null, // Current target of mouse event
         isEmptyTip: false,
-        disable: false,
-
-        tooltipEl: null,
-        tooltipArrowOutside: null,
-        tooltipArrowInside: null,
-        tooltipContentEl: null,
+        disable: (this.tooltipProps.hideOnMobile && !!('ontouchstart' in window)),
+        // ↑↑↑ don't show tooltip at mobile
       };
 
       this.bind([
@@ -67,7 +63,6 @@ function WrapperTooltip(WrappedComponent) {
     }
 
     componentDidMount() {
-      this.getTooltipEl();
       this.bindListener();
       this.bindWindowEvents(this.tooltipProps.resizeHide);
     }
@@ -135,26 +130,6 @@ function WrapperTooltip(WrappedComponent) {
       window.removeEventListener('resize', this.onWindowResize);
     }
 
-    getTooltipEl() {
-      const { baseClassName, hideOnMobile } = this.tooltipProps;
-      if (hideOnMobile && !!('ontouchstart' in window)) {
-        // check for touch device - behaviour and events for touch device
-        this.setState({ disable: true });
-        return;
-        // ↑↑↑ don't show tooltip at mobile
-      }
-
-      const tooltipEl = this.DOM.querySelector(`.${baseClassName}`);
-      const tooltipArrowOutside = tooltipEl.querySelector(`.${baseClassName}-arrow-outside`);
-      const tooltipArrowInside = tooltipEl.querySelector(`.${baseClassName}-arrow-inside`);
-      const tooltipContentEl = tooltipEl.querySelector(`.${baseClassName}-content`);
-      if (tooltipEl) {
-        this.setState({ tooltipEl, tooltipArrowOutside, tooltipArrowInside, tooltipContentEl });
-      } else {
-        this.setState({ disable: true });
-      }
-    }
-
     showTooltip(e) {
       const { dataTooltip, place, offset } = this.tooltipProps;
       let { resizeHide, isFollowMouse } = this.tooltipProps;
@@ -180,17 +155,17 @@ function WrapperTooltip(WrappedComponent) {
     }
 
     updateTooltip(e) {
-      const { show, isEmptyTip, disable, tooltipEl, isFollowMouse } = this.state;
+      const { show, isEmptyTip, disable, isFollowMouse } = this.state;
       const { afterShow } = this.tooltipProps;
       const eventTarget = e.currentTarget;
 
       // if the tooltip is empty, disable the tooltip
       // and not follow mouse → not update
       if (isEmptyTip || disable || (show && !isFollowMouse)) return;
-      tooltipEl.classList.add('show');
+      this.tooltipEl.classList.add('show');
 
-      tooltipEl.classList.remove('top', 'bottom', 'right', 'left');
-      tooltipEl.classList.add(this.state.place);
+      this.tooltipEl.classList.remove('top', 'bottom', 'right', 'left');
+      this.tooltipEl.classList.add(this.state.place);
 
       this.setState({
         currentEvent: e,
@@ -203,7 +178,7 @@ function WrapperTooltip(WrappedComponent) {
     }
 
     hideTooltip(e) {
-      const { isEmptyTip, disable, tooltipEl } = this.state;
+      const { isEmptyTip, disable } = this.state;
       const { afterHide } = this.tooltipProps;
       if (!this.mount) return;
       if (isEmptyTip || disable) return; // if the tooltip is empty, disable the tooltip
@@ -214,7 +189,7 @@ function WrapperTooltip(WrappedComponent) {
       this.setState({
         show: false,
       }, () => {
-        tooltipEl.classList.remove('show');
+        this.tooltipEl.classList.remove('show');
         if (afterHide) afterHide();
       });
     }
@@ -223,16 +198,13 @@ function WrapperTooltip(WrappedComponent) {
       const {
         currentEvent,
         currentTarget,
-        tooltipEl,
-        tooltipArrowOutside,
-        tooltipArrowInside,
         place,
         offset,
         isFollowMouse,
       } = this.state;
       const { overflowContainer } = this.props;
 
-      const result = getPosition(currentEvent, currentTarget, this.DOM, tooltipEl, place, isFollowMouse, offset);
+      const result = getPosition(currentEvent, currentTarget, this.DOM, this.tooltipEl, place, isFollowMouse, offset);
 
       // console.log(result);
 
@@ -242,18 +214,18 @@ function WrapperTooltip(WrappedComponent) {
       }
 
       if (result.place && result.place !== place) {
-        tooltipEl.classList.remove('top', 'bottom', 'right', 'left');
-        tooltipEl.classList.add(result.place);
+        this.tooltipEl.classList.remove('top', 'bottom', 'right', 'left');
+        this.tooltipEl.classList.add(result.place);
       }
 
       // Set tooltip position ~~ Math.floor(Double)
-      tooltipEl.style.left = `${~~result.position.left}px`;
-      tooltipEl.style.top = `${~~result.position.top}px`;
+      this.tooltipEl.style.left = `${~~result.position.left}px`;
+      this.tooltipEl.style.top = `${~~result.position.top}px`;
       if (result.positionArrow) {
-        tooltipArrowOutside.style.left = `${result.positionArrow.left}px`;
-        tooltipArrowInside.style.left = `${result.positionArrow.left}px`;
-        tooltipArrowOutside.style.top = `${result.positionArrow.top}px`;
-        tooltipArrowInside.style.top = `${result.positionArrow.top}px`;
+        this.tooltipArrowOutside.style.left = `${result.positionArrow.left}px`;
+        this.tooltipArrowInside.style.left = `${result.positionArrow.left}px`;
+        this.tooltipArrowOutside.style.top = `${result.positionArrow.top}px`;
+        this.tooltipArrowInside.style.top = `${result.positionArrow.top}px`;
       }
     }
 
@@ -264,11 +236,13 @@ function WrapperTooltip(WrappedComponent) {
       return (
         <div className={`${baseClassName}-wrapper`} ref={ DOM => this.DOM = DOM }>
           <WrappedComponent {...newProps} />
-          <div className={baseClassName}>
-            <span className={`${baseClassName}-arrow-outside`} />
-            <div className={`${baseClassName}-content`}
-              dangerouslySetInnerHTML={{ __html: this.state.dataTooltip }} />
-            <span className={`${baseClassName}-arrow-inside`} />
+          <div className={baseClassName} ref={ DOM => this.tooltipEl = DOM }>
+            <span className={`${baseClassName}-arrow-outside`} ref={ DOM => this.tooltipArrowOutside = DOM }/>
+            <div
+              className={`${baseClassName}-content`}
+              dangerouslySetInnerHTML={{ __html: this.state.dataTooltip }}
+              ref={ DOM => this.tooltipContentEl = DOM }/>
+            <span className={`${baseClassName}-arrow-inside`} ref={ DOM => this.tooltipArrowInside = DOM }/>
           </div>
         </div>
       );
