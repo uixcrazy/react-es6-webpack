@@ -44,36 +44,6 @@ export default props => {
     <p>A link: <a href="http://www.simplehtmlguide.com"> html guide </a></p>`
   return (
     <div>
-      <h1>Static Demo</h1>
-      <div className="box-grp demo-static">
-        <StaticUI {...props}
-          key="static01"
-          tooltip={{
-            dataTooltip: dataTooltipDefault,
-            isFollowMouse: false,
-          }}
-          name="you! I am static Box"
-        >
-          <span rel="tooltip" data-place="bottom">BOTTOM</span>
-          <span rel="tooltip" data-place="right">RIGHT</span>
-          <span rel="tooltip" data-place="left">LEFT</span>
-          <span rel="tooltip">TOP</span>
-        </StaticUI>
-        <StaticUI {...props}
-          key="static02"
-          tooltip={{
-            dataTooltip: dataTooltipDefault,
-            isFollowMouse: false,
-          }}
-          name="you! I am static Box"
-        >
-          <span rel="tooltip" data-place="bottom">BOTTOM</span>
-          <span rel="tooltip" data-place="right">RIGHT</span>
-          <span rel="tooltip" data-place="left">LEFT</span>
-          <span rel="tooltip" data-place="top">TOP</span>
-        </StaticUI>
-      </div>
-
       <h1>Follow MOuse - bottom default</h1>
       <div className="box-grp demo-dynamic">
         <DynamicUI {...props}
@@ -105,6 +75,44 @@ export default props => {
           }}
           name="you! I follow by your mouse..."/>
       </div>
+
+
+
+
+
+      <h1>Static Demo</h1>
+      <div className="box-grp demo-static">
+        <StaticUI {...props}
+          key="static01"
+          tooltip={{
+            dataTooltip: dataTooltipDefault,
+            isFollowMouse: false,
+          }}
+          name="you! I am static Box"
+        >
+          <span rel="tooltip" data-place="bottom">BOTTOM</span>
+          <span rel="tooltip" data-place="right">RIGHT</span>
+          <span rel="tooltip" data-place="left">LEFT</span>
+          <span rel="tooltip">TOP</span>
+        </StaticUI>
+        <StaticUI {...props}
+          key="static02"
+          tooltip={{
+            dataTooltip: dataTooltipDefault,
+            isFollowMouse: false,
+          }}
+          name="you! I am static Box"
+        >
+          <span rel="tooltip" data-place="bottom">BOTTOM</span>
+          <span rel="tooltip" data-place="right">RIGHT</span>
+          <span rel="tooltip" data-place="left">LEFT</span>
+          <span rel="tooltip" data-place="top">TOP</span>
+        </StaticUI>
+      </div>
+
+
+
+
 
       <h1>Follow MOuse - right default</h1>
       <div className="box-grp demo-dynamic">

@@ -97,11 +97,6 @@ function WrapperTooltip(WrappedComponent) {
         }
         this.unbindBasicListener(target);
 
-        // if (this.isCustomEvent(target)) {
-        //   this.customBindListener(target);
-        //   return;
-        // }
-
         target.addEventListener('mouseenter', this.showTooltip);
         if (isFollowMouse) {
           target.addEventListener('mousemove', this.updateTooltip);
@@ -212,12 +207,10 @@ function WrapperTooltip(WrappedComponent) {
       const { afterHide } = this.tooltipProps;
       if (!this.mount) return;
       if (isEmptyTip || disable) return; // if the tooltip is empty, disable the tooltip
-      // if (hasTarget) {
         // Don't trigger other elements belongs to other ReactTooltip
       const targetArray = this.getTargetArray();
       const isMyElement = targetArray.some(ele => ele === e.currentTarget);
       if (!isMyElement || !this.state.show) return;
-      // }
       this.setState({
         show: false,
       }, () => {
